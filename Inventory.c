@@ -1,29 +1,35 @@
 // 
 //
-// File header should be : sku,name,qty,price,stk
+// File header should be : Bar,name,cat,qty,price
+// the next line should contain the number of items 
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
 
-#define NAME 128
-#define SIZE 10000
-
-typedef struct item
+#include "MyFunctions.h"
+/*typedef struct item
 {
-  unsigned int sku;
-  char name[NAME];
-  char cat[NAME];
+  char BAR[BAR];
+  char name[STR];
   int qty;
   float price;
   struct item *nxt;
 } Item;
 
-typedef struct hashTable
+typedef struct
 {
   Item **buckets;
   int capacity;
   int size;
+} HashTable;*/
+
+int main(void)
+{
+  MsgLoading();
+  return 0;
 }
+
+
 
