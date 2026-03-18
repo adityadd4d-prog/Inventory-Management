@@ -9,21 +9,6 @@
 #include <strings.h>
 
 #include "MyFunctions.h"
-/*typedef struct item
-{
-  char BAR[BAR];
-  char name[STR];
-  int qty;
-  float price;
-  struct item *nxt;
-} Item;
-
-typedef struct
-{
-  Item **buckets;
-  int capacity;
-  int size;
-} HashTable;*/
 
 int main(void)
 {

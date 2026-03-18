@@ -20,9 +20,12 @@ typedef struct
   Item **buckets;
   int capacity;
   int size;
-} HashTable;
+} Table;
 
 //---Functions Prototypes---
+
+int BucketSize(int size)
+Table* CreateHashTable(int size)
 void MsgLoading();
 
 //---Colours---
