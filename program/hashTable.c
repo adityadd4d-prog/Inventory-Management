@@ -24,7 +24,6 @@ int BucketSize(int size)
     }
 }
 
-
 Table* CreateHashTable(int size)
 {
   int i, cap;
@@ -50,5 +49,18 @@ Table* CreateHashTable(int size)
   tab->buckets = buc;
   return tab;
 }
+
+
+unsigned int Hash(char *key, int cap)
+{
+  unsigned int hash = 5381;
+  int i = 0;
+  while (key[i] != '\0')
+  {
+    hash = (hash * 33) + key[i];
+  }
+  return hash % cap;
+}
+
 
 

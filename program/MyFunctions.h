@@ -24,8 +24,9 @@ typedef struct
 
 //---Functions Prototypes---
 
-int BucketSize(int size)
-Table* CreateHashTable(int size)
+int BucketSize(int size);
+Table* CreateHashTable(int size);
+unsigned int Hash(char *key, int cap);
 void MsgLoading();
 
 //---Colours---
