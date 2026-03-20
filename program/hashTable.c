@@ -1,6 +1,11 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+
+#include "MyFunctions.h"
+
 
 int BucketSize(int size)
 {
@@ -20,8 +25,26 @@ int BucketSize(int size)
               is_prime = 0;
               break;
             }
-        if (is_prime) return n;
+        if (is_prime)
+          return n;
     }
+}
+
+Item* CreateItem(char *str)
+{
+  int fl = 0;
+  Item *ni = NULL;
+  do 
+  {
+    ni = (Item*)malloc(sizeof(Item));
+    fl++;
+  } while (!ni && (fl < 3));
+  ni->bar = strtok(str, SEP);
+  ni->name = strtok(NULL, SEP);
+  ni->qty = atoi(strtok(NULL, SEP));
+  ni->price = atof(strtok(NULL, SEP));
+  ni->next = NULL;
+  return ni;
 }
 
 Table* CreateHashTable(int size)
@@ -50,6 +73,37 @@ Table* CreateHashTable(int size)
   return tab;
 }
 
+unsigned int Count(FILE *fp) 
+{
+    fseek(fp, 0, SEEK_END);
+    long pos = ftell(fp);
+
+    // skip trailing newlines
+    while (pos > 0)
+    {
+        fseek(fp, --pos, SEEK_SET);
+        char c = fgetc(fp);
+        if (c != '\n' && c != '\r') 
+          break;
+    }
+
+    // walk back to start of last line
+    while (pos > 0) 
+    {
+        fseek(fp, --pos, SEEK_SET);
+        char c = fgetc(fp);
+        if (c == '\n') 
+          break;
+    }
+
+    char buff[BUFFER];
+    fgets(buff, BUFFER, fp);
+    char *tok = strtok(buff, SEP);
+    if (!tok) 
+      return 0;
+
+    return (unsigned int)atoi(tok);
+}
 
 unsigned int Hash(char *key, int cap)
 {

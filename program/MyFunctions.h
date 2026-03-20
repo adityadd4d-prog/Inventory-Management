@@ -3,6 +3,8 @@
 
 //---Named Constants---
 #define BAR 12
+#define BUFFER 1024
+#define SEP ","
 #define STR 128
 
 //---Structures---
@@ -25,7 +27,9 @@ typedef struct
 //---Functions Prototypes---
 
 int BucketSize(int size);
+Item* CreateItem(char *str)
 Table* CreateHashTable(int size);
+unsigned int Count(FILE *fp) 
 unsigned int Hash(char *key, int cap);
 void MsgLoading();
 

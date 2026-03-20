@@ -3,7 +3,8 @@ project(Inventory LANGUAGES C)
 
 # Define a variable to hold all source files
 set(SOURCE_FILES
-    Inventory.c
+    Inventory.c 
+    hashTable.c 
     cosmetic.c
 )
 
