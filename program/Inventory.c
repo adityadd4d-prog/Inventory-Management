@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     char nm[STR];
     printf("Enter Search Item : ");
     fgets(nm , STR , stdin);
+    nm[strcspn(nm, "\n")] = '\0';
     Item *item = Search(nm, tab);
     if (!item)
     {

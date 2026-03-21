@@ -2,7 +2,7 @@
 #define MYFUNCTIONS_H
 
 //---Named Constants---
-#define BAR 12
+#define BAR 15
 #define BUFFER 1024
 #define READ 5
 #define SEP ","
