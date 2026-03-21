@@ -125,6 +125,8 @@ Item* Search(char *key, Table *tab)
 {
   unsigned int hash = Hash( key, tab->capacity);
   Item *temp = tab->buckets[hash];
+  if (!temp)
+    return NULL;
   do 
   {
     if (strcasecmp(temp->name, key) == 0)
@@ -166,9 +168,12 @@ Table* FillHashTable(FILE *fp)
   Table *tab = CreateHashTable(fp);
   char buff[BUFFER];
   rewind(fp);
+  fgets(buff, BUFFER, fp);
   while (fgets(buff, BUFFER, fp) != NULL)
   {
     Item *ni = CreateItem(buff);
+    if (!ni) 
+      continue;
     unsigned int hash = Hash(ni->name, tab->capacity);
     if (tab->buckets[hash] == NULL)
       tab->buckets[hash] = ni;

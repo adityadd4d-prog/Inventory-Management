@@ -6,7 +6,7 @@
 #define BUFFER 1024
 #define READ 5
 #define SEP ","
-#define STR 128
+#define STR 256
 
 //---Structures---
 typedef struct item

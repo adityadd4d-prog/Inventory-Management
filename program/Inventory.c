@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   {
     char nm[STR];
     printf("Enter Search Item : ");
-    scanf("%s", &nm);
+    fgets(nm , STR , stdin);
     Item *item = Search(nm, tab);
     if (!item)
     {

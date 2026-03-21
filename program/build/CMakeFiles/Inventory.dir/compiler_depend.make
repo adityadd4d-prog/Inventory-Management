@@ -171,12 +171,15 @@ Inventory: /usr/lib/Scrt1.o \
   /usr/lib/libc.so \
   /usr/lib/libgcc_s.so \
   /usr/lib/libgcc_s.so.1 \
+  /usr/lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a \
   /usr/lib/ld-linux-x86-64.so.2 \
   /usr/lib/libc.so.6 \
   /usr/lib/libc_nonshared.a \
+  /usr/lib/libm.so.6 \
+  /usr/lib/libmvec.so.1 \
   CMakeFiles/Inventory.dir/Inventory.c.o \
   CMakeFiles/Inventory.dir/cosmetic.c.o \
   CMakeFiles/Inventory.dir/hashTable.c.o
@@ -193,6 +196,8 @@ CMakeFiles/Inventory.dir/Inventory.c.o:
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
+
+/usr/lib/libm.so:
 
 /usr/lib/libgcc_s.so.1:
 
@@ -302,6 +307,8 @@ CMakeFiles/Inventory.dir/cosmetic.c.o:
 
 /usr/include/bits/pthreadtypes.h:
 
+/usr/lib/libmvec.so.1:
+
 /usr/include/bits/types/once_flag.h:
 
 /usr/include/bits/atomic_wide_counter.h:
@@ -319,6 +326,8 @@ CMakeFiles/Inventory.dir/cosmetic.c.o:
 /usr/include/bits/types/locale_t.h:
 
 /usr/include/bits/types/struct_FILE.h:
+
+/usr/lib/libm.so.6:
 
 /usr/include/sys/select.h:
 
