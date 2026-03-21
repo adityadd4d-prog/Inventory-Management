@@ -10,3 +10,6 @@ set(SOURCE_FILES
 
 # Add an executable target using the source files
 add_executable(Inventory ${SOURCE_FILES})
+
+# Linking The Math Library as it is not standard
+target_link_libraries(Inventory m)

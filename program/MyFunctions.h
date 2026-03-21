@@ -4,6 +4,7 @@
 //---Named Constants---
 #define BAR 12
 #define BUFFER 1024
+#define READ 5
 #define SEP ","
 #define STR 128
 
@@ -26,11 +27,15 @@ typedef struct
 
 //---Functions Prototypes---
 
+FILE* LoadFile(char *fileName);
 int BucketSize(int size);
-Item* CreateItem(char *str)
-Table* CreateHashTable(int size);
-unsigned int Count(FILE *fp) 
+int Count(FILE *fp); 
+Item* CreateItem(char *str);
+Item* Search(char *key, Table *tab);
+Table* CreateHashTable(FILE *fp);
+Table* FillHashTable(FILE *fp);
 unsigned int Hash(char *key, int cap);
+void append(Item *head, Item *ni);
 void MsgLoading();
 
 //---Colours---

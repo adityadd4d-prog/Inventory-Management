@@ -1,0 +1,3 @@
+/home/slayer/Projects/Inventory/program/build/CMakeFiles/Inventory.dir
+/home/slayer/Projects/Inventory/program/build/CMakeFiles/edit_cache.dir
+/home/slayer/Projects/Inventory/program/build/CMakeFiles/rebuild_cache.dir

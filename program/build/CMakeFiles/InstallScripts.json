@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/slayer/Projects/Inventory/program/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
