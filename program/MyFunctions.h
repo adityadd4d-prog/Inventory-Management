@@ -35,6 +35,7 @@ Item* Search(char *key, Table *tab);
 Table* CreateHashTable(FILE *fp);
 Table* FillHashTable(FILE *fp);
 unsigned int Hash(char *key, int cap);
+void Add(Table *tab, FILE *fp);
 void append(Item *head, Item *ni);
 void MsgLoading();
 

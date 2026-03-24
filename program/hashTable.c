@@ -201,4 +201,37 @@ void append(Item *head, Item *ni)
   head->nxt = ni;
 }
 
+void Add(Table *tab, FILE *fp)
+{
+  char buff[BUFFER];
+  char bar[BAR], name[STR];
+  int qty;
+  float price;
+  puts("Enter The Following Details :- ");
+  printf("Name : ");
+  fgets(name, STR - 1, stdin);
+  name[strcspn(name, "\n")] = '\0';
+  printf("Barcode : ");
+  scanf("%s", bar);
+  printf("Quantity : ");
+  scanf("%d", &qty);
+  printf("Price : ");
+  scanf("%f", &price);
+  int index = Count(fp) + 1;
+  snprintf(buff, BUFFER, "%d,%s,%s,%d,%.2f\n",index,bar,name,qty,price);
+  fputs(buff, fp);
+  Item *ni = CreateItem(buff);
+  if (!ni)
+  {
+    puts("Failed To Add.");
+    return;
+  }
+  unsigned int hash = Hash(ni->name, tab->capacity);
+  if (tab->buckets[hash] == NULL)
+    tab->buckets[hash] = ni;
+  else
+    append(tab->buckets[hash], ni);
+  puts("Added Successfully.");
+  return;
+}
 
