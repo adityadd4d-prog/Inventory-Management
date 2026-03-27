@@ -34,14 +34,17 @@ typedef struct
 
 
 //---Function Prototypes---
-FILE* LoadFile(char *fileName);
+char* OCR(char *image)
 int BucketSize(int size);
 int Count(FILE *fp);
 int Hash(char *key, int cap);
 Item* ReadItem(char *str);
+Item* Search(char *key, Table *tab);
 Table* CreateHashTable(FILE *fp);
 Table* FillHashTable(FILE *fp);
 void Add(Table **tab, Item *ni);
+void LoadFile(char *fileName);
+void WriteFile(Table *tab, char *fileName);
 
 
 //---Colours---

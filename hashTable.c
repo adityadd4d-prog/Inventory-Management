@@ -1,34 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
 #include "functions.h"
 
-
-FILE* LoadFile(char *fileName)
+char* OCR(char *image)
 {
-  FILE *fp = fopen(fileName, "r");
-  if (!fp)
+  char command[BUFFER], bar[BAR];
+  snprintf(command, BUFFER, "tesseract \"%s\" stdout 2>/dev/null", image);
+  FILE *pipe = popen(command, "r");
+  if (!pipe)
   {
-    puts("Data Loading Failed!\nRerun Program");
-    exit(0);
+    puts("Scan Failed.");
+    return NULL;
   }
-  int size = Count(fp);
-  if (!size)
-  {
-    puts("Empty Database!\n Would You Like To Continue [Y/N] : ");
-    char ch;
-    scanf("%c", &ch);
-    if (ch == 'N' || ch == 'n')
-    {
-      puts("Exiting Program...\n");
-      exit(0);
-    }
-    else 
-    {
-      return fp;
-    }
-  }
-  return fp;
+  fgets(bar, BAR, pipe);
+  return bar;
 }
 
 int BucketSize(int size)
@@ -82,6 +70,17 @@ int Count(FILE *fp)
     return atoi(tok);
 }
 
+int Hash(char *key, int cap)
+{
+  unsigned int hash = 5381;
+  int i = 0;
+  while (key[i] != '\0')
+  {
+    hash = (hash * 33) + key[i++];
+  }
+  return hash % cap;
+}
+
 Item* ReadItem(char *str)
 {
   int fl = 0;
@@ -120,15 +119,28 @@ Item* ReadItem(char *str)
   return ni;
 }
 
-int Hash(char *key, int cap)
+Item* Search(char *key, Table *tab)
 {
-  unsigned int hash = 5381;
-  int i = 0;
-  while (key[i] != '\0')
+  int hash = Hash( key, tab->capacity);
+  Item *temp = tab->buckets[hash]; 
+  while (temp)
   {
-    hash = (hash * 33) + key[i++];
+    if (strcasecmp(temp->bar, key) == 0)
+      if (temp->status)
+        return temp;
+      else 
+        {
+          printf("The Searched Barcode Belongs to a Discontinued Item.\nWould You Still Like To Fetch Data [Y/N] : ");
+          int ch;
+          scanf("%c", &ch);
+          if (ch == 'n' || ch == 'N')
+            return NULL;
+          else 
+            return temp;
+        }
+    temp = temp->nxt;
   }
-  return hash % cap;
+  return NULL;
 }
 
 Table* CreateHashTable(FILE *fp)
@@ -184,9 +196,61 @@ void Add(Table **tab, Item *ni)
   else 
   {
     Item *temp = (*tab)->buckets[hash];
-    while (temp->nxt != NULL)
-          temp = temp->nxt;
+    while (temp->next != NULL)
+          temp = temp->next;
     temp->next = ni;
   }
+  return;
+}
+
+Void LoadFile(char *fileName)
+{
+  FILE *fp = fopen(fileName, "r");
+  if (!fp)
+  {
+    puts("Data Loading Failed!\nRerun Program");
+    exit(0);
+  }
+  int size = Count(fp);
+  if (!size)
+  {
+    puts("Empty Database!\n Would You Like To Continue [Y/N] : ");
+    char ch;
+    scanf("%c", &ch);
+    if (ch == 'N' || ch == 'n')
+    {
+      puts("Exiting Program...\n");
+      exit(0);
+    }
+    else 
+    {
+      fclose(fp);
+      return;
+    }
+  }
+  fclose(fp);
+  return;
+}
+
+void WriteFile(Table *tab, char *fileName)
+{
+  int i;
+  FILE *fp = fopen(fileName, "w");
+  if (!fp)
+  {
+    puts("File Creation Failed.\nTry Again.");
+    return NULL;
+  }
+  fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
+  for (i = 1; i <= tab->cap; i++)
+  {
+    Item *temp = tab->buckets[i];
+    while (temp)
+    {  
+      fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      temp = temp->next;
+    }
+  }
+  fclose(fp);
   return;
 }
