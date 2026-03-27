@@ -1,10 +1,11 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-//CSV File Format :-Index,Bar code,Name,Price,Stock,Capacity,Percent Stock,Status 
+//CSV File Format :-Index,Bar code,Name,Price,Stock,TransactionsOfItems,Capacity,Percent Stock,Status 
 
 //---Named Constants---
 #define BAR 15
+#define BUFFER 256
 #define READ 9
 #define SEP ","
 #define STR 128

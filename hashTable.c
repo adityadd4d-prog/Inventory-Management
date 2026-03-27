@@ -28,11 +28,13 @@ FILE* LoadFile(char *fileName)
       return fp;
     }
   }
-  fclose(fp)
+  return fp;
 }
 
 int BucketSize(int size)
 {
+    if (size <=0)
+      return 7;
     int i, n;
     double cap = size / 5.0;
     cap += cap * 0.25;
@@ -110,11 +112,11 @@ Item* ReadItem(char *str)
   strcpy(ni->name, tok[2]);
   ni->price = atof(tok[3]);
   ni->stock = atoi(tok[4]);
-  ni->trans = 0;
+  ni->trans = atoi(tok[5]);
   ni->cap = atoi(tok[6]);
-  ni->per = atod(tok[7]);
-  ni->status = 1;
-  ni->nxt = NULL;
+  ni->per = atof(tok[7]);
+  ni->status = atoi(tok[8]);
+  ni->next = NULL;
   return ni;
 }
 
@@ -184,7 +186,7 @@ void Add(Table **tab, Item *ni)
     Item *temp = (*tab)->buckets[hash];
     while (temp->nxt != NULL)
           temp = temp->nxt;
-    temp->nxt = ni;
+    temp->next = ni;
   }
   return;
 }
