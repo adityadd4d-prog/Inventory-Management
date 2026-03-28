@@ -7,7 +7,8 @@
 
 char* OCR(char *image)
 {
-  char command[BUFFER], bar[BAR];
+  char command[BUFFER];
+  char *bar = (char*)malloc(sizeof(char)*BAR);
   snprintf(command, BUFFER, "tesseract \"%s\" stdout 2>/dev/null", image);
   FILE *pipe = popen(command, "r");
   if (!pipe)
@@ -23,7 +24,7 @@ int BucketSize(int size)
 {
     if (size <=0)
       return 7;
-    int i, n;
+    int i, n = 1;
     double cap = size / 5.0;
     cap += cap * 0.25;
     n = (int)ceil(cap) - 1;
@@ -121,7 +122,7 @@ Item* ReadItem(char *str)
 
 Item* Search(char *key, Table *tab)
 {
-  int hash = Hash( key, tab->capacity);
+  int hash = Hash( key, tab->cap);
   Item *temp = tab->buckets[hash]; 
   while (temp)
   {
@@ -138,7 +139,7 @@ Item* Search(char *key, Table *tab)
           else 
             return temp;
         }
-    temp = temp->nxt;
+    temp = temp->next;
   }
   return NULL;
 }
@@ -203,7 +204,7 @@ void Add(Table **tab, Item *ni)
   return;
 }
 
-Void LoadFile(char *fileName)
+void LoadFile(char *fileName)
 {
   FILE *fp = fopen(fileName, "r");
   if (!fp)
@@ -234,21 +235,22 @@ Void LoadFile(char *fileName)
 
 void WriteFile(Table *tab, char *fileName)
 {
-  int i;
+  int i, idx;
   FILE *fp = fopen(fileName, "w");
   if (!fp)
   {
     puts("File Creation Failed.\nTry Again.");
-    return NULL;
+    return;
   }
   fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
-  for (i = 1; i <= tab->cap; i++)
+  for (i = 0, idx = 1; i <= tab->cap; i++)
   {
     Item *temp = tab->buckets[i];
     while (temp)
     {  
-      fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",idx,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
+      idx++;
     }
   }
   fclose(fp);

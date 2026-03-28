@@ -34,7 +34,7 @@ typedef struct
 
 
 //---Function Prototypes---
-char* OCR(char *image)
+char* OCR(char *image);
 int BucketSize(int size);
 int Count(FILE *fp);
 int Hash(char *key, int cap);
