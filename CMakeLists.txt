@@ -3,7 +3,8 @@ project(Inventory LANGUAGES C)
 
 # Define a variable to hold all source files
 set(SOURCE_FILES
-    main.c
+    inventory.c
+    menuUi.c
     hashTable.c
 )
 
@@ -11,4 +12,4 @@ set(SOURCE_FILES
 add_executable(Inventory ${SOURCE_FILES})
 
 # Linking The Math Library as it is not standard
-target_link_libraries(Inventory m)
+target_link_libraries(Inventory m ncurses)

@@ -43,6 +43,7 @@ Item* Search(char *key, Table *tab);
 Table* CreateHashTable(FILE *fp);
 Table* FillHashTable(FILE *fp);
 void Add(Table **tab, Item *ni);
+void draw_bg(void);
 void LoadFile(char *fileName);
 void WriteFile(Table *tab, char *fileName);
 
