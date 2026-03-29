@@ -210,6 +210,6 @@ Inventory
  /usr/lib/libm.so.6
  /usr/lib/libmvec.so.1
  /home/slayer/Projects/Inventory-Management/build/CMakeFiles/Inventory.dir/hashTable.c.o
- /home/slayer/Projects/Inventory-Management/build/CMakeFiles/Inventory.dir/main.c.o
+ /home/slayer/Projects/Inventory-Management/build/CMakeFiles/Inventory.dir/inventory.c.o
  /home/slayer/Projects/Inventory-Management/build/CMakeFiles/Inventory.dir/menuUi.c.o
 

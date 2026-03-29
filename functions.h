@@ -6,6 +6,8 @@
 //---Named Constants---
 #define BAR 15
 #define BUFFER 256
+#define ENTER 10
+#define ESC   27
 #define READ 9
 #define SEP ","
 #define STR 128

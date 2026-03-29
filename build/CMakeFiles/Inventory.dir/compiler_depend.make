@@ -206,7 +206,7 @@ Inventory: /usr/lib/Scrt1.o \
   /usr/lib/libm.so.6 \
   /usr/lib/libmvec.so.1 \
   CMakeFiles/Inventory.dir/hashTable.c.o \
-  CMakeFiles/Inventory.dir/main.c.o \
+  CMakeFiles/Inventory.dir/inventory.c.o \
   CMakeFiles/Inventory.dir/menuUi.c.o
 
 
@@ -282,7 +282,7 @@ CMakeFiles/Inventory.dir/hashTable.c.o:
 
 /usr/include/bits/pthreadtypes-arch.h:
 
-CMakeFiles/Inventory.dir/main.c.o:
+CMakeFiles/Inventory.dir/inventory.c.o:
 
 /usr/include/features.h:
 

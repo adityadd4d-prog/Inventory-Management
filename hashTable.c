@@ -14,9 +14,11 @@ char* OCR(char *image)
   if (!pipe)
   {
     puts("Scan Failed.");
+    free(bar);
     return NULL;
   }
   fgets(bar, BAR, pipe);
+  pclose(pipe);
   return bar;
 }
 
@@ -243,7 +245,7 @@ void WriteFile(Table *tab, char *fileName)
     return;
   }
   fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
-  for (i = 0, idx = 1; i <= tab->cap; i++)
+  for (i = 0, idx = 1; i < tab->cap; i++)
   {
     Item *temp = tab->buckets[i];
     while (temp)

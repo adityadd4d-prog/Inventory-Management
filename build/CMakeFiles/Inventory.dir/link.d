@@ -2,7 +2,7 @@ Inventory: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
-  CMakeFiles/Inventory.dir/main.c.o \
+  CMakeFiles/Inventory.dir/inventory.c.o \
   CMakeFiles/Inventory.dir/menuUi.c.o \
   CMakeFiles/Inventory.dir/hashTable.c.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
@@ -42,7 +42,7 @@ Inventory: \
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
 
-CMakeFiles/Inventory.dir/main.c.o:
+CMakeFiles/Inventory.dir/inventory.c.o:
 
 CMakeFiles/Inventory.dir/menuUi.c.o:
 

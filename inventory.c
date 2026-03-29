@@ -6,8 +6,6 @@
 
 int main(void)
 {
-  extern Table *g_tab;
-  extern char g_file[STR];
-  g_tab = NULL;
-  g_file = "inventory.csv";
+  Table *g_tab = NULL;
+  char g_file[STR] = "inventory.csv";
 }

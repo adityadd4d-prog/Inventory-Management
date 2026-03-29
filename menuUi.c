@@ -2,6 +2,8 @@
 #include <string.h>
 #include "functions.h"
 
+extern Table *g_tab;
+extern char g_file[STR];
 
 void draw_bg(void)
 {
