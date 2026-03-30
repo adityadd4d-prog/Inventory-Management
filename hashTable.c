@@ -134,12 +134,16 @@ Item* Search(char *key, Table *tab)
       else 
         {
           printf("The Searched Barcode Belongs to a Discontinued Item.\nWould You Still Like To Fetch Data [Y/N] : ");
-          int ch;
+          char ch;
           scanf("%c", &ch);
           if (ch == 'n' || ch == 'N')
+          {
             return NULL;
-          else 
+          }
+          else
+          {
             return temp;
+          }
         }
     temp = temp->next;
   }
