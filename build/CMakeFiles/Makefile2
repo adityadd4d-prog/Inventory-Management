@@ -63,11 +63,11 @@ CMAKE_BINARY_DIR = /home/slayer/Projects/Inventory-Management/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Inventory.dir/all
+all: CMakeFiles/ims.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/Inventory.dir/codegen
+codegen: CMakeFiles/ims.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,40 +75,40 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Inventory.dir/clean
+clean: CMakeFiles/ims.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Inventory.dir
+# Target rules for target CMakeFiles/ims.dir
 
 # All Build rule for target.
-CMakeFiles/Inventory.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/slayer/Projects/Inventory-Management/build/CMakeFiles --progress-num=1,2,3,4 "Built target Inventory"
-.PHONY : CMakeFiles/Inventory.dir/all
+CMakeFiles/ims.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/slayer/Projects/Inventory-Management/build/CMakeFiles --progress-num=1,2,3,4 "Built target ims"
+.PHONY : CMakeFiles/ims.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Inventory.dir/rule: cmake_check_build_system
+CMakeFiles/ims.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/slayer/Projects/Inventory-Management/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Inventory.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ims.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/slayer/Projects/Inventory-Management/build/CMakeFiles 0
-.PHONY : CMakeFiles/Inventory.dir/rule
+.PHONY : CMakeFiles/ims.dir/rule
 
 # Convenience name for target.
-Inventory: CMakeFiles/Inventory.dir/rule
-.PHONY : Inventory
+ims: CMakeFiles/ims.dir/rule
+.PHONY : ims
 
 # codegen rule for target.
-CMakeFiles/Inventory.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/slayer/Projects/Inventory-Management/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target Inventory"
-.PHONY : CMakeFiles/Inventory.dir/codegen
+CMakeFiles/ims.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/slayer/Projects/Inventory-Management/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target ims"
+.PHONY : CMakeFiles/ims.dir/codegen
 
 # clean rule for target.
-CMakeFiles/Inventory.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/clean
-.PHONY : CMakeFiles/Inventory.dir/clean
+CMakeFiles/ims.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/clean
+.PHONY : CMakeFiles/ims.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

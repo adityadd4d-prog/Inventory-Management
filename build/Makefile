@@ -117,89 +117,89 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Inventory
+# Target rules for targets named ims
 
 # Build rule for target.
-Inventory: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Inventory
-.PHONY : Inventory
+ims: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ims
+.PHONY : ims
 
 # fast build rule for target.
-Inventory/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/build
-.PHONY : Inventory/fast
+ims/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/build
+.PHONY : ims/fast
 
-hashTable.o: hashTable.c.o
-.PHONY : hashTable.o
-
-# target to build an object file
-hashTable.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/hashTable.c.o
-.PHONY : hashTable.c.o
-
-hashTable.i: hashTable.c.i
-.PHONY : hashTable.i
-
-# target to preprocess a source file
-hashTable.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/hashTable.c.i
-.PHONY : hashTable.c.i
-
-hashTable.s: hashTable.c.s
-.PHONY : hashTable.s
-
-# target to generate assembly for a file
-hashTable.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/hashTable.c.s
-.PHONY : hashTable.c.s
-
-inventory.o: inventory.c.o
-.PHONY : inventory.o
+src/gui_handlers.o: src/gui_handlers.c.o
+.PHONY : src/gui_handlers.o
 
 # target to build an object file
-inventory.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/inventory.c.o
-.PHONY : inventory.c.o
+src/gui_handlers.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/gui_handlers.c.o
+.PHONY : src/gui_handlers.c.o
 
-inventory.i: inventory.c.i
-.PHONY : inventory.i
+src/gui_handlers.i: src/gui_handlers.c.i
+.PHONY : src/gui_handlers.i
 
 # target to preprocess a source file
-inventory.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/inventory.c.i
-.PHONY : inventory.c.i
+src/gui_handlers.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/gui_handlers.c.i
+.PHONY : src/gui_handlers.c.i
 
-inventory.s: inventory.c.s
-.PHONY : inventory.s
+src/gui_handlers.s: src/gui_handlers.c.s
+.PHONY : src/gui_handlers.s
 
 # target to generate assembly for a file
-inventory.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/inventory.c.s
-.PHONY : inventory.c.s
+src/gui_handlers.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/gui_handlers.c.s
+.PHONY : src/gui_handlers.c.s
 
-menuUi.o: menuUi.c.o
-.PHONY : menuUi.o
+src/hashTable.o: src/hashTable.c.o
+.PHONY : src/hashTable.o
 
 # target to build an object file
-menuUi.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/menuUi.c.o
-.PHONY : menuUi.c.o
+src/hashTable.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/hashTable.c.o
+.PHONY : src/hashTable.c.o
 
-menuUi.i: menuUi.c.i
-.PHONY : menuUi.i
+src/hashTable.i: src/hashTable.c.i
+.PHONY : src/hashTable.i
 
 # target to preprocess a source file
-menuUi.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/menuUi.c.i
-.PHONY : menuUi.c.i
+src/hashTable.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/hashTable.c.i
+.PHONY : src/hashTable.c.i
 
-menuUi.s: menuUi.c.s
-.PHONY : menuUi.s
+src/hashTable.s: src/hashTable.c.s
+.PHONY : src/hashTable.s
 
 # target to generate assembly for a file
-menuUi.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Inventory.dir/build.make CMakeFiles/Inventory.dir/menuUi.c.s
-.PHONY : menuUi.c.s
+src/hashTable.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/hashTable.c.s
+.PHONY : src/hashTable.c.s
+
+src/main.o: src/main.c.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/main.c.o
+.PHONY : src/main.c.o
+
+src/main.i: src/main.c.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/main.c.i
+.PHONY : src/main.c.i
+
+src/main.s: src/main.c.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ims.dir/build.make CMakeFiles/ims.dir/src/main.c.s
+.PHONY : src/main.c.s
 
 # Help Target
 help:
@@ -209,16 +209,16 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Inventory"
-	@echo "... hashTable.o"
-	@echo "... hashTable.i"
-	@echo "... hashTable.s"
-	@echo "... inventory.o"
-	@echo "... inventory.i"
-	@echo "... inventory.s"
-	@echo "... menuUi.o"
-	@echo "... menuUi.i"
-	@echo "... menuUi.s"
+	@echo "... ims"
+	@echo "... src/gui_handlers.o"
+	@echo "... src/gui_handlers.i"
+	@echo "... src/gui_handlers.s"
+	@echo "... src/hashTable.o"
+	@echo "... src/hashTable.i"
+	@echo "... src/hashTable.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 
