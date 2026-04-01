@@ -1,3 +1,0 @@
-/home/slayer/Projects/Inventory-Management/build/CMakeFiles/ims.dir
-/home/slayer/Projects/Inventory-Management/build/CMakeFiles/edit_cache.dir
-/home/slayer/Projects/Inventory-Management/build/CMakeFiles/rebuild_cache.dir

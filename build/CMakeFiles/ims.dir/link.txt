@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--export-dynamic -Wl,--dependency-file=CMakeFiles/ims.dir/link.d CMakeFiles/ims.dir/src/main.c.o CMakeFiles/ims.dir/src/gui_handlers.c.o CMakeFiles/ims.dir/src/hashTable.c.o -o ims  -lgtk-3 -lgdk-3 -lz -lpangocairo-1.0 -lcairo-gobject -lgdk_pixbuf-2.0 -latk-1.0 -lpango-1.0 -lcairo -lharfbuzz -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lm

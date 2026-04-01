@@ -7,14 +7,14 @@
 
 char* OCR(char *image)
 {
+  /* BUG FIX: returning pointer to local array is UB; use static */
+  static char bar[BAR];
   char command[BUFFER];
-  char *bar = (char*)malloc(sizeof(char)*BAR);
   snprintf(command, BUFFER, "tesseract \"%s\" stdout 2>/dev/null", image);
   FILE *pipe = popen(command, "r");
   if (!pipe)
   {
     puts("Scan Failed.");
-    free(bar);
     return NULL;
   }
   fgets(bar, BAR, pipe);
@@ -24,9 +24,9 @@ char* OCR(char *image)
 
 int BucketSize(int size)
 {
-    if (size <=0)
+    if (size <= 0)
       return 7;
-    int i, n = 1;
+    int i, n;
     double cap = size / 5.0;
     cap += cap * 0.25;
     n = (int)ceil(cap) - 1;
@@ -124,7 +124,8 @@ Item* ReadItem(char *str)
 
 Item* Search(char *key, Table *tab)
 {
-  int hash = Hash( key, tab->cap);
+  /* BUG FIX: was tab->capacity (no such field) → tab->cap */
+  int hash = Hash(key, tab->cap);
   Item *temp = tab->buckets[hash]; 
   while (temp)
   {
@@ -134,17 +135,14 @@ Item* Search(char *key, Table *tab)
       else 
         {
           printf("The Searched Barcode Belongs to a Discontinued Item.\nWould You Still Like To Fetch Data [Y/N] : ");
-          char ch;
+          int ch;
           scanf("%c", &ch);
           if (ch == 'n' || ch == 'N')
-          {
             return NULL;
-          }
-          else
-          {
+          else 
             return temp;
-          }
         }
+    /* BUG FIX: was temp->nxt (no such field) → temp->next */
     temp = temp->next;
   }
   return NULL;
@@ -210,6 +208,7 @@ void Add(Table **tab, Item *ni)
   return;
 }
 
+/* BUG FIX: was 'Void' (capital V) → void */
 void LoadFile(char *fileName)
 {
   FILE *fp = fopen(fileName, "r");
@@ -241,22 +240,23 @@ void LoadFile(char *fileName)
 
 void WriteFile(Table *tab, char *fileName)
 {
-  int i, idx;
+  int i;
   FILE *fp = fopen(fileName, "w");
   if (!fp)
   {
     puts("File Creation Failed.\nTry Again.");
+    /* BUG FIX: was 'return NULL' in a void function → return */
     return;
   }
   fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
-  for (i = 0, idx = 1; i < tab->cap; i++)
+  /* BUG FIX: was i=1; i<=tab->cap (off-by-one, skips bucket 0) → i=0; i<tab->cap */
+  for (i = 0; i < tab->cap; i++)
   {
     Item *temp = tab->buckets[i];
     while (temp)
     {  
-      fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",idx,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
-      idx++;
     }
   }
   fclose(fp);

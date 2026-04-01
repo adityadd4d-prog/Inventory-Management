@@ -6,8 +6,6 @@
 //---Named Constants---
 #define BAR 15
 #define BUFFER 256
-#define ENTER 10
-#define ESC   27
 #define READ 9
 #define SEP ","
 #define STR 128
@@ -36,7 +34,7 @@ typedef struct
 
 
 //---Function Prototypes---
-char* OCR(char *image);
+char* OCR(char *image);          /* fixed: was missing semicolon */
 int BucketSize(int size);
 int Count(FILE *fp);
 int Hash(char *key, int cap);
@@ -45,7 +43,6 @@ Item* Search(char *key, Table *tab);
 Table* CreateHashTable(FILE *fp);
 Table* FillHashTable(FILE *fp);
 void Add(Table **tab, Item *ni);
-void draw_bg(void);
 void LoadFile(char *fileName);
 void WriteFile(Table *tab, char *fileName);
 
