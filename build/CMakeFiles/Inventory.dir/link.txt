@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/Inventory.dir/link.d CMakeFiles/Inventory.dir/src/main.c.o CMakeFiles/Inventory.dir/src/hashTable.c.o CMakeFiles/Inventory.dir/src/ui.c.o -o Inventory  -lm -lncurses
