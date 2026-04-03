@@ -96,7 +96,7 @@ int MyMenu(char **opt, int optNum, int y, int x)
     all[i] = (ITEM*)NULL;
     menu = new_menu(all);
     set_menu_win(menu, stdscr);
-    set_menu_sub(menu, derwin(stdscr, optNum, 20, y, x));
+    set_menu_sub(menu, derwin(stdscr, optNum, 30, y, x));
     post_menu(menu);
     refresh();
     while ((key = getch()) != F1) 
@@ -114,7 +114,7 @@ int MyMenu(char **opt, int optNum, int y, int x)
             goto end;
         }
     }
-end:
+    end:
     unpost_menu(menu);
     refresh();
     for (i = 0; i < optNum; i++)
@@ -151,7 +151,7 @@ void DisplayItem(Item *it)
   attroff(COLOR_PAIR(2));
   printw("Barcode          : %s\n",it->bar);
   printw("Name             : %s\n",it->name);
-  printw("Rate             : %.2fRupees\n",it->price);
+  printw("Rate             : %.2f Rupees\n",it->price);
   printw("Stock            : %d\n",it->stock);
   printw("Net Transactions : %d\n",it->trans);
   printw("Stock Capacity   : %d\n",it->cap);
@@ -169,7 +169,7 @@ int UpdateMenu(void)
   attron(COLOR_PAIR(2));
   printw("---Updation Menu---");
   attroff(COLOR_PAIR(2));
-  int ch = MyMenu(opt, 1, 3, 0);
+  int ch = MyMenu(opt, 4, 1, 0);
   return ch;
 }
 
@@ -230,7 +230,6 @@ void UpdateItem(Table *tab)
           attroff(COLOR_PAIR(4));
           getch();
           goto Back;
-
       }
       it->per = (it->stock/it->cap) * 100;
       mvprintw(2, 0,"Updated Stock     : %d",it->stock);
@@ -248,6 +247,8 @@ void UpdateItem(Table *tab)
       char ch = getch();
       if (ch == 'D' || ch == 'd')
         it->status = 0;
+      else 
+        it->status = 1;
       mvprintw(2, 0,"Updated Status   : %s",it->status ? "Active" : "Discontinued");
       attron(COLOR_PAIR(2));
       mvprintw(4, 0,"Status Updated.");
