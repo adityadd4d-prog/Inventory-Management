@@ -21,11 +21,11 @@
 //--For Hash Table---
 #define BAR 15
 #define BUFFER 256
-#define PASS "123"
+#define PASS "panda"
 #define READ 9
 #define SEP ","
 #define STR 128
-#define ADMIN "test"
+#define ADMIN "slayer"
 
 //---For UI---
 #define ENTER 10

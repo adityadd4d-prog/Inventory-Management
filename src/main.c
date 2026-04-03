@@ -33,7 +33,7 @@ int main(void)
         mvprintw(3, 0,"Press Enter Key to Return Back.");
         attroff(COLOR_PAIR(4));
         getch();
-        goto MenuBack;
+        goto MainBack;
       }
       ItemBack:
       clear();
@@ -142,7 +142,7 @@ int main(void)
         mvprintw(3, 0,"Press Enter Key to Return Back.");
         attroff(COLOR_PAIR(4));
         getch();
-        goto MenuBack;
+        goto MainBack;
       }
       ReportBack:
       clear();
@@ -228,6 +228,17 @@ int main(void)
             fclose(fp);
             goto FileBack;
           case 2:
+          if (!tab)
+            {
+              attron(COLOR_PAIR(3));
+              mvprintw(0, 0, "Hash Table Not Created.");
+              attroff(COLOR_PAIR(3));
+              attron(COLOR_PAIR(4));
+              mvprintw(3, 0,"Press Enter Key to Return Back.");
+              attroff(COLOR_PAIR(4));
+              getch();
+              goto FileBack;
+            }
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Save File---");
             attroff(COLOR_PAIR(2));
@@ -255,6 +266,17 @@ int main(void)
             getch();
             goto FileBack;
           case 3:
+          if (!tab)
+            {
+              attron(COLOR_PAIR(3));
+              mvprintw(0, 0, "Hash Table Not Created.");
+              attroff(COLOR_PAIR(3));
+              attron(COLOR_PAIR(4));
+              mvprintw(3, 0,"Press Enter Key to Return Back.");
+              attroff(COLOR_PAIR(4));
+              getch();
+              goto FileBack;
+            }
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Purging Discontinued Items---");
             attroff(COLOR_PAIR(2));

@@ -183,7 +183,7 @@ FILE* LoadFile(char *fileName)
     mvprintw(3, 0, "Empty File!");
     attroff(COLOR_PAIR(3));
     attron(COLOR_PAIR(4));
-    mvprintw(6, 0, "Would You Like To Continue [Y/N] : ");
+    mvprintw(6, 0, "Would You Like To Continue [Y/n] : ");
     attroff(COLOR_PAIR(4));
     echo();
     char ch = getch();

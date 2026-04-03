@@ -1,6 +1,6 @@
 #include "functions.h"
 
-}Item* AddItem(void)
+Item* AddItem(void)
 {
   Item *ni = (Item*)malloc(sizeof(Item));
   if (!ni)
@@ -175,7 +175,7 @@ void DisplayItem(Item *it)
   printw("Stock Percent    : %.2f%%\n",it->per);
   printw("Status           : %s\n",it->status ? "Active" : "Discontinued");
   attron(COLOR_PAIR(4));
-  mvprintw(12, 0,"Press any Key to Return Back.");
+  mvprintw(12, 0,"Press Enter Key to Return Back.");
   attroff(COLOR_PAIR(4));
   getch();
 }
@@ -196,6 +196,7 @@ void UpdateItem(Table *tab)
   echo();
   curs_set(1);
   mvprintw(1, 0,"Barcode : ");
+  curs_set(0);
   getnstr(buff,BUFFER - 1);
   Item *it = Search(buff, tab);
   if (!it)
@@ -215,8 +216,15 @@ void UpdateItem(Table *tab)
   {
     case 1:
       mvprintw(0, 0,"Old Price     : %.2f Rupees",it->price);
-      mvprintw(1, 0,"New Price     : ");
-      getnstr(buff,BUFFER - 1);
+      do {
+        curs_set(1);
+        mvprintw(1, 0,"New Price     : ");
+        clrtoeol();
+        curs_set(0);
+        getnstr(buff, BUFFER - 1);
+        if (strlen(buff) == 0)
+        continue;
+      } while (atof(buff) <= 0);
       it->price = atof(buff);
       mvprintw(2, 0,"Updated Price : %.2f Rupees",it->price);
       attron(COLOR_PAIR(2));
@@ -231,8 +239,10 @@ void UpdateItem(Table *tab)
       mvprintw(0, 0,"Old Stock         : %d",it->stock);
       int trans;
       do {
+        curs_set(1);
         mvprintw(1, 0,"Stock Transaction : ");
         clrtoeol();
+        curs_set(0);
         getnstr(buff, BUFFER - 1);
         if (strlen(buff) == 0)
         continue;
