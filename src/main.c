@@ -121,6 +121,7 @@ int main(void)
         case 3:
           Item *ni = AddItem();
           Add(&tab, ni);
+          (*tab)->size++;
           attron(COLOR_PAIR(3));
           mvprintw(7, 0, "Item Added");
           attroff(COLOR_PAIR(3));

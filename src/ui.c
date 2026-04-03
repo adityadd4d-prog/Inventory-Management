@@ -3,8 +3,6 @@
 Item* AddItem(void)
 {
   Item *ni = (Item*)malloc(sizeof(Item));
-  if (!ni)
-    return NULL;
   char buff[BUFFER];
   attron(COLOR_PAIR(2));
   mvprintw(0, 0, "---Add Item---");
@@ -136,6 +134,7 @@ int MyMenu(char **opt, int optNum, int y, int x)
     refresh();
     for (i = 0; i < optNum; i++)
       free_item(all[i]);
+    delwin(sub);
     free_menu(menu);
     return ch;
 }
@@ -196,8 +195,8 @@ void UpdateItem(Table *tab)
   echo();
   curs_set(1);
   mvprintw(1, 0,"Barcode : ");
-  curs_set(0);
   getnstr(buff,BUFFER - 1);
+  curs_set(0);
   Item *it = Search(buff, tab);
   if (!it)
   {

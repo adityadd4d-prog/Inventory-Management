@@ -162,7 +162,6 @@ void Add(Table **tab, Item *ni)
           temp = temp->next;
     temp->next = ni;
   }
-  (*tab)->size++;
   return;
 }
 
