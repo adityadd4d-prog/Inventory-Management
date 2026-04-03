@@ -24,22 +24,22 @@ int main(void)
   switch (MainMenu())
   {
     case 1:
+      if (!tab)
+      {
+        attron(COLOR_PAIR(3));
+        mvprintw(0, 0, "Hash Table Not Created.");
+        attroff(COLOR_PAIR(3));
+        attron(COLOR_PAIR(4));
+        mvprintw(3, 0,"Press Enter Key to Return Back.");
+        attroff(COLOR_PAIR(4));
+        getch();
+        goto MenuBack;
+      }
       ItemBack:
       clear();
       switch (ItemMenu())
       {
         case 1:
-          if (!tab)
-          {
-            attron(COLOR_PAIR(3));
-            mvprintw(0, 0, "Hash Table Not Created.");
-            attroff(COLOR_PAIR(3));
-            attron(COLOR_PAIR(4));
-            mvprintw(3, 0,"Press Enter Key to Return Back.");
-            attroff(COLOR_PAIR(4));
-            getch();
-            goto ItemBack;
-          }
           SearchBack:
           clear();
           char bar[BAR];
@@ -82,8 +82,8 @@ int main(void)
               getnstr(path,PATH-1);
               curs_set(0);
               noecho();
-              strcpy(bar,OCR(path));
-              if (!bar)
+              char *res = OCR(path);
+              if (!res)
               {
                 attron(COLOR_PAIR(3));
                 mvprintw(5, 0, "OCR Recognition Failed!");
@@ -94,16 +94,17 @@ int main(void)
                 getch();
                 goto SearchBack;
               } 
+              strcpy(bar,res);
               it = Search(bar, tab);
               if (it)
                 DisplayItem(it);
               else 
               {
                 attron(COLOR_PAIR(3));
-                mvprintw(0, 0, "Item Not Found!");
+                mvprintw(5, 0, "Item Not Found!");
                 attroff(COLOR_PAIR(3));
                 attron(COLOR_PAIR(4));
-                mvprintw(3, 0,"Press Enter Key to Return Back.");
+                mvprintw(8, 0,"Press Enter Key to Return Back.");
                 attroff(COLOR_PAIR(4));
                 getch();
               }
@@ -132,6 +133,17 @@ int main(void)
           goto MainBack;
       }
     case 2:
+      if (!tab)
+      {
+        attron(COLOR_PAIR(3));
+        mvprintw(0, 0, "Hash Table Not Created.");
+        attroff(COLOR_PAIR(3));
+        attron(COLOR_PAIR(4));
+        mvprintw(3, 0,"Press Enter Key to Return Back.");
+        attroff(COLOR_PAIR(4));
+        getch();
+        goto MenuBack;
+      }
       ReportBack:
       clear();
       switch (ReportMenu())
@@ -253,6 +265,7 @@ int main(void)
             mvprintw(6, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
             getch();
+            goto FileBack;
           case 4:
             goto MainBack;
         }

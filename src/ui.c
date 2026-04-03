@@ -1,31 +1,48 @@
 #include "functions.h"
 
-Item* AddItem(void)
+}Item* AddItem(void)
 {
   Item *ni = (Item*)malloc(sizeof(Item));
+  if (!ni)
+    return NULL;
   char buff[BUFFER];
   attron(COLOR_PAIR(2));
   mvprintw(0, 0, "---Add Item---");
   attroff(COLOR_PAIR(2));
   echo();
   curs_set(1);
-  mvprintw(1, 0,"Barcode        : ");
-  getnstr(buff,BUFFER - 1);
-  strcpy(ni->bar,buff);
-  mvprintw(2, 0,"Name           : ");
-  getnstr(buff,BUFFER - 1);
-  strcpy(ni->name,buff);
-  mvprintw(3, 0,"Price          : ");
-  getnstr(buff,BUFFER - 1);
-  ni->price = atof(buff);
-  mvprintw(4, 0,"Stock          : ");
-  getnstr(buff,BUFFER - 1);
-  ni->stock = atoi(buff);
-  mvprintw(5, 0,"Stock Capacity : ");
-  getnstr(buff,BUFFER - 1);
-  ni->cap = atoi(buff);
+  do {
+    mvprintw(1, 0, "Barcode        : ");
+    clrtoeol();
+    getnstr(buff, BAR - 1);
+  } while (strlen(buff) == 0);
+  strcpy(ni->bar, buff);
+  do {
+    mvprintw(2, 0, "Name           : ");
+    clrtoeol();
+    getnstr(buff, STR - 1);
+  } while (strlen(buff) == 0);
+  strcpy(ni->name, buff);
+  do {
+    mvprintw(3, 0, "Price          : ");
+    clrtoeol();
+    getnstr(buff, BUFFER - 1);
+    ni->price = atof(buff);
+  } while (ni->price <= 0);
+  do {
+    mvprintw(4, 0, "Stock          : ");
+    clrtoeol();
+    getnstr(buff, BUFFER - 1);
+    ni->stock = atoi(buff);
+  } while (ni->stock < 0);
+  do {
+    mvprintw(5, 0, "Stock Capacity : ");
+    clrtoeol();
+    getnstr(buff, BUFFER - 1);
+    ni->cap = atoi(buff);
+  } while (ni->cap <= 0 || ni->cap <= ni->stock);
   ni->trans = 0;
-  ni->per = (ni->stock/ni->cap) * 100;
+  ni->per = ((float)ni->stock / ni->cap) * 100.0;
   ni->status = 1;
   ni->next = NULL;
   noecho();
@@ -212,10 +229,17 @@ void UpdateItem(Table *tab)
       goto Back;
     case 2:
       mvprintw(0, 0,"Old Stock         : %d",it->stock);
-      mvprintw(1, 0,"Stock Transaction : ");
-      getnstr(buff,BUFFER - 1);
-      it->trans += atoi(buff);
-      it->stock += atoi(buff);
+      int trans;
+      do {
+        mvprintw(1, 0,"Stock Transaction : ");
+        clrtoeol();
+        getnstr(buff, BUFFER - 1);
+        if (strlen(buff) == 0)
+        continue;
+        trans = atoi(buff);
+      } while (trans == 0 || trans < -it->stock);
+      it->trans += trans;
+      it->stock += trans;
       if (it->stock > it->cap)
       {
           it->cap = it->stock + it->stock * 0.25;
@@ -231,7 +255,7 @@ void UpdateItem(Table *tab)
           getch();
           goto Back;
       }
-      it->per = (it->stock/it->cap) * 100;
+      it->per = ((float)it->stock/it->cap) * 100;
       mvprintw(2, 0,"Updated Stock     : %d",it->stock);
       attron(COLOR_PAIR(2));
       mvprintw(4, 0,"Stock Updated.");

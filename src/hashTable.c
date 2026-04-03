@@ -13,6 +13,7 @@ char* OCR(char *image)
   }
   fgets(bar, BAR, pipe);
   pclose(pipe);
+  bar[strcspn(bar, "\n\r")] = '\0';
   return bar;
 }
 
@@ -43,28 +44,13 @@ int BucketSize(int size)
 
 int Count(FILE *fp) 
 {
-    fseek(fp, 0, SEEK_END);
-    long pos = ftell(fp);
-    while (pos > 0)
-    {
-        fseek(fp, --pos, SEEK_SET);
-        char c = fgetc(fp);
-        if (c != '\n') 
-          break;
-    }
-    while (pos > 0) 
-    {
-        fseek(fp, --pos, SEEK_SET);
-        char c = fgetc(fp);
-        if (c == '\n') 
-          break;
-    }
-    char buff[BUFFER];
-    fgets(buff, BUFFER, fp);
-    char *tok = strtok(buff, SEP);
-    if (!tok) 
-      return 0;
-    return atoi(tok);
+  rewind(fp);
+  int count = 0;
+  char buff[BUFFER];
+  fgets(buff, BUFFER, fp);
+  while (fgets(buff, BUFFER, fp) != NULL)
+    count++;
+  return count;
 }
 
 int Hash(char *key, int cap)
@@ -176,6 +162,7 @@ void Add(Table **tab, Item *ni)
           temp = temp->next;
     temp->next = ni;
   }
+  (*tab)->size++;
   return;
 }
 
