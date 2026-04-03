@@ -6,6 +6,7 @@
 //------------------
 //---Header Files---
 //------------------
+#include <math.h>
 #include <menu.h>
 #include <ncurses.h>
 #include <stdio.h>
@@ -20,13 +21,16 @@
 //--For Hash Table---
 #define BAR 15
 #define BUFFER 256
+#define PASS "123"
 #define READ 9
 #define SEP ","
 #define STR 128
+#define ADMIN "test"
 
 //---For UI---
 #define ENTER 10
 #define F1 KEY_F(1)
+#define PATH 512
 
 
 //---------------------------
@@ -68,11 +72,18 @@ Item* Search(char *key, Table *tab);
 Table* CreateHashTable(FILE *fp);
 Table* FillHashTable(FILE *fp);
 void Add(Table **tab, Item *ni);
-void LoadFile(char *fileName);
+FILE* LoadFile(char *fileName);
 void WriteFile(Table *tab, char *fileName);
 
 //---For UI---
+Item* AddItem(void);
+int AdminVerify(void);
+int FileMenu(void);
+int ItemMenu(void);
 int MainMenu(void);
 int MyMenu(char **opt, int optNum, int y, int x);
+int ReportMenu(void);
+int SearchMenu(void);
+void DisplayItem(Item *it);
 
 #endif

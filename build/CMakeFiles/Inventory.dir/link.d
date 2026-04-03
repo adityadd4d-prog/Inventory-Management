@@ -10,6 +10,10 @@ Inventory: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
   /usr/lib/libm.so.6 \
   /usr/lib/libmvec.so.1 \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenu.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenu.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenu.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenuw.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libncurses.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libncurses.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libncurses.so \
@@ -57,6 +61,14 @@ CMakeFiles/Inventory.dir/src/ui.c.o:
 /usr/lib/libm.so.6:
 
 /usr/lib/libmvec.so.1:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenu.so:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenu.so:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenu.so:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libmenuw.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libncurses.so:
 

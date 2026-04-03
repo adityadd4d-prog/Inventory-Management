@@ -9,4 +9,4 @@ set(SOURCE_FILES
 
 add_executable(Inventory ${SOURCE_FILES})
 
-target_link_libraries(Inventory m ncurses)
+target_link_libraries(Inventory m menu ncurses)

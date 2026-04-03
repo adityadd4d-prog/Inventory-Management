@@ -1,20 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-
 #include "functions.h"
 
 char* OCR(char *image)
 {
-  /* BUG FIX: returning pointer to local array is UB; use static */
-  static char bar[BAR];
+  char *bar = (char*)malloc(sizeof(char) * BAR);
   char command[BUFFER];
   snprintf(command, BUFFER, "tesseract \"%s\" stdout 2>/dev/null", image);
   FILE *pipe = popen(command, "r");
   if (!pipe)
   {
-    puts("Scan Failed.");
     return NULL;
   }
   fgets(bar, BAR, pipe);
@@ -124,7 +117,6 @@ Item* ReadItem(char *str)
 
 Item* Search(char *key, Table *tab)
 {
-  /* BUG FIX: was tab->capacity (no such field) → tab->cap */
   int hash = Hash(key, tab->cap);
   Item *temp = tab->buckets[hash]; 
   while (temp)
@@ -142,7 +134,6 @@ Item* Search(char *key, Table *tab)
           else 
             return temp;
         }
-    /* BUG FIX: was temp->nxt (no such field) → temp->next */
     temp = temp->next;
   }
   return NULL;
@@ -154,19 +145,9 @@ Table* CreateHashTable(FILE *fp)
   size = Count(fp);
   cap = BucketSize(size);
   Table *tab = (Table*)malloc(sizeof(Table));
-  if (!tab)
-  {
-    puts("Hash Table Creation Failed!\nSuggested Rerun.");
-    exit(0);
-  }
   tab->cap = cap;
   tab->size = size;
   Item **buc = (Item**)malloc(sizeof(Item*) * cap);
-  if (!buc)
-  {
-    puts("Hash Table Creation Failed!\nSuggested Rerun.");
-    exit(0);
-  }
   for (i = 0; i < cap; i++)
   {
     buc[i] = NULL;
@@ -208,34 +189,52 @@ void Add(Table **tab, Item *ni)
   return;
 }
 
-/* BUG FIX: was 'Void' (capital V) → void */
-void LoadFile(char *fileName)
+FILE* LoadFile(char *fileName)
 {
   FILE *fp = fopen(fileName, "r");
   if (!fp)
   {
-    puts("Data Loading Failed!\nRerun Program");
-    exit(0);
+    mvprintw(3, 0, "File Opening Failed!");
+    mvprintw(6, 0, "Press Any Key To Return Back.");
+    getch();
+    return NULL;
   }
   int size = Count(fp);
   if (!size)
   {
-    puts("Empty Database!\n Would You Like To Continue [Y/N] : ");
-    char ch;
-    scanf("%c", &ch);
+    attron(COLOR_PAIR(3));
+    mvprintw(3, 0, "Empty File!");
+    attroff(COLOR_PAIR(3));
+    attron(COLOR_PAIR(4));
+    mvprintw(6, 0, "Would You Like To Continue [Y/N] : ");
+    attroff(COLOR_PAIR(4));
+    echo();
+    char ch = getch();
+    noecho();
     if (ch == 'N' || ch == 'n')
     {
-      puts("Exiting Program...\n");
-      exit(0);
+      return NULL;
     }
     else 
     {
-      fclose(fp);
-      return;
+      attron(COLOR_PAIR(2));
+      mvprintw(3, 0, "File Opening Sucessfull.");
+      attroff(COLOR_PAIR(2));
+      attron(COLOR_PAIR(4));
+      mvprintw(6, 0, "Press Any Key To Proceed To Create Hash Table");
+      attroff(COLOR_PAIR(4));
+      getch();
+      return fp;
     }
   }
-  fclose(fp);
-  return;
+  attron(COLOR_PAIR(2));
+  mvprintw(3, 0, "File Opening Sucessfull.");
+  attroff(COLOR_PAIR(2));
+  attron(COLOR_PAIR(4));
+  mvprintw(6, 0, "Press Any Key To Proceed To Create Hash Table.");
+  attroff(COLOR_PAIR(4));
+  getch();
+  return fp;
 }
 
 void WriteFile(Table *tab, char *fileName)
@@ -245,11 +244,9 @@ void WriteFile(Table *tab, char *fileName)
   if (!fp)
   {
     puts("File Creation Failed.\nTry Again.");
-    /* BUG FIX: was 'return NULL' in a void function → return */
     return;
   }
   fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
-  /* BUG FIX: was i=1; i<=tab->cap (off-by-one, skips bucket 0) → i=0; i<tab->cap */
   for (i = 0; i < tab->cap; i++)
   {
     Item *temp = tab->buckets[i];

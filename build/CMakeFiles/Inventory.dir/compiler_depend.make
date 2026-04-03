@@ -62,11 +62,13 @@ CMakeFiles/Inventory.dir/src/hashTable.c.o: /home/slayer/Projects/Inventory-Mana
   /usr/include/bits/wordsize.h \
   /usr/include/curses.h \
   /usr/include/endian.h \
+  /usr/include/eti.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
   /usr/include/math.h \
+  /usr/include/menu.h \
   /usr/include/ncurses_dll.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
@@ -92,8 +94,18 @@ CMakeFiles/Inventory.dir/src/main.c.o: /home/slayer/Projects/Inventory-Managemen
   /usr/include/bits/endianness.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
+  /usr/include/bits/iscanonical.h \
   /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
   /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls-narrow.h \
+  /usr/include/bits/mathcalls.h \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
   /usr/include/bits/select.h \
@@ -134,10 +146,13 @@ CMakeFiles/Inventory.dir/src/main.c.o: /home/slayer/Projects/Inventory-Managemen
   /usr/include/bits/wordsize.h \
   /usr/include/curses.h \
   /usr/include/endian.h \
+  /usr/include/eti.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
+  /usr/include/math.h \
+  /usr/include/menu.h \
   /usr/include/ncurses_dll.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
@@ -163,8 +178,18 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
   /usr/include/bits/endianness.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
+  /usr/include/bits/iscanonical.h \
   /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
   /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls-narrow.h \
+  /usr/include/bits/mathcalls.h \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
   /usr/include/bits/select.h \
@@ -205,10 +230,13 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
   /usr/include/bits/wordsize.h \
   /usr/include/curses.h \
   /usr/include/endian.h \
+  /usr/include/eti.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
+  /usr/include/math.h \
+  /usr/include/menu.h \
   /usr/include/ncurses_dll.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
@@ -225,14 +253,65 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h
 
+Inventory: /usr/lib/Scrt1.o \
+  /usr/lib/crti.o \
+  /usr/lib/crtn.o \
+  /usr/lib/libc.so \
+  /usr/lib/libgcc_s.so \
+  /usr/lib/libgcc_s.so.1 \
+  /usr/lib/libm.so \
+  /usr/lib/libmenu.so \
+  /usr/lib/libmenuw.so \
+  /usr/lib/libncurses.so \
+  /usr/lib/libncursesw.so \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a \
+  /usr/lib/ld-linux-x86-64.so.2 \
+  /usr/lib/libc.so.6 \
+  /usr/lib/libc_nonshared.a \
+  /usr/lib/libm.so.6 \
+  /usr/lib/libmvec.so.1 \
+  CMakeFiles/Inventory.dir/src/hashTable.c.o \
+  CMakeFiles/Inventory.dir/src/main.c.o \
+  CMakeFiles/Inventory.dir/src/ui.c.o
+
+
+CMakeFiles/Inventory.dir/src/ui.c.o:
+
+CMakeFiles/Inventory.dir/src/main.c.o:
+
+/usr/lib/libc.so.6:
+
+/usr/lib/ld-linux-x86-64.so.2:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
+
+/usr/lib/libncurses.so:
+
+/usr/lib/libm.so:
+
+/usr/lib/libgcc_s.so.1:
+
+/usr/lib/libgcc_s.so:
+
+/usr/lib/crtn.o:
+
+/usr/lib/crti.o:
+
+/usr/lib/Scrt1.o:
 
 /home/slayer/Projects/Inventory-Management/src/main.c:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h:
 
 /usr/include/sys/types.h:
+
+/usr/lib/libm.so.6:
 
 /usr/include/sys/select.h:
 
@@ -253,6 +332,8 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
 /usr/include/features-time64.h:
 
 /usr/include/curses.h:
+
+/usr/lib/libmenu.so:
 
 /usr/include/bits/stdint-least.h:
 
@@ -279,6 +360,8 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
 /usr/include/bits/long-double.h:
 
 /usr/include/bits/fp-logb.h:
+
+CMakeFiles/Inventory.dir/src/hashTable.c.o:
 
 /usr/include/bits/libm-simd-decl-stubs.h:
 
@@ -324,6 +407,8 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
 
 /usr/include/bits/pthreadtypes.h:
 
+/usr/lib/libmvec.so.1:
+
 /usr/include/bits/types/once_flag.h:
 
 /usr/include/bits/floatn.h:
@@ -332,11 +417,17 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
 
+/usr/include/menu.h:
+
 /home/slayer/Projects/Inventory-Management/src/hashTable.c:
 
 /usr/include/bits/types/__locale_t.h:
 
+/usr/lib/libc.so:
+
 /usr/include/bits/fp-fast.h:
+
+/usr/lib/libmenuw.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h:
 
@@ -348,7 +439,11 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
 
 /usr/include/bits/timesize.h:
 
+/usr/lib/libc_nonshared.a:
+
 /usr/include/bits/types.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o:
 
 /usr/include/bits/types/FILE.h:
 
@@ -368,6 +463,8 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
 
 /usr/include/bits/types/clockid_t.h:
 
+/usr/include/eti.h:
+
 /usr/include/endian.h:
 
 /usr/include/bits/stdint-uintn.h:
@@ -377,6 +474,8 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
 /usr/include/bits/uintn-identity.h:
 
 /usr/include/bits/typesizes.h:
+
+/usr/lib/libncursesw.so:
 
 /usr/include/bits/types/locale_t.h:
 

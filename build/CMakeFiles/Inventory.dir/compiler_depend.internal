@@ -63,11 +63,13 @@ CMakeFiles/Inventory.dir/src/hashTable.c.o
  /usr/include/bits/wordsize.h
  /usr/include/curses.h
  /usr/include/endian.h
+ /usr/include/eti.h
  /usr/include/features-time64.h
  /usr/include/features.h
  /usr/include/gnu/stubs-64.h
  /usr/include/gnu/stubs.h
  /usr/include/math.h
+ /usr/include/menu.h
  /usr/include/ncurses_dll.h
  /usr/include/stdc-predef.h
  /usr/include/stdint.h
@@ -94,8 +96,18 @@ CMakeFiles/Inventory.dir/src/main.c.o
  /usr/include/bits/endianness.h
  /usr/include/bits/floatn-common.h
  /usr/include/bits/floatn.h
+ /usr/include/bits/flt-eval-method.h
+ /usr/include/bits/fp-fast.h
+ /usr/include/bits/fp-logb.h
+ /usr/include/bits/iscanonical.h
  /usr/include/bits/libc-header-start.h
+ /usr/include/bits/libm-simd-decl-stubs.h
  /usr/include/bits/long-double.h
+ /usr/include/bits/math-vector.h
+ /usr/include/bits/mathcalls-helper-functions.h
+ /usr/include/bits/mathcalls-macros.h
+ /usr/include/bits/mathcalls-narrow.h
+ /usr/include/bits/mathcalls.h
  /usr/include/bits/pthreadtypes-arch.h
  /usr/include/bits/pthreadtypes.h
  /usr/include/bits/select.h
@@ -136,10 +148,13 @@ CMakeFiles/Inventory.dir/src/main.c.o
  /usr/include/bits/wordsize.h
  /usr/include/curses.h
  /usr/include/endian.h
+ /usr/include/eti.h
  /usr/include/features-time64.h
  /usr/include/features.h
  /usr/include/gnu/stubs-64.h
  /usr/include/gnu/stubs.h
+ /usr/include/math.h
+ /usr/include/menu.h
  /usr/include/ncurses_dll.h
  /usr/include/stdc-predef.h
  /usr/include/stdint.h
@@ -166,8 +181,18 @@ CMakeFiles/Inventory.dir/src/ui.c.o
  /usr/include/bits/endianness.h
  /usr/include/bits/floatn-common.h
  /usr/include/bits/floatn.h
+ /usr/include/bits/flt-eval-method.h
+ /usr/include/bits/fp-fast.h
+ /usr/include/bits/fp-logb.h
+ /usr/include/bits/iscanonical.h
  /usr/include/bits/libc-header-start.h
+ /usr/include/bits/libm-simd-decl-stubs.h
  /usr/include/bits/long-double.h
+ /usr/include/bits/math-vector.h
+ /usr/include/bits/mathcalls-helper-functions.h
+ /usr/include/bits/mathcalls-macros.h
+ /usr/include/bits/mathcalls-narrow.h
+ /usr/include/bits/mathcalls.h
  /usr/include/bits/pthreadtypes-arch.h
  /usr/include/bits/pthreadtypes.h
  /usr/include/bits/select.h
@@ -208,10 +233,13 @@ CMakeFiles/Inventory.dir/src/ui.c.o
  /usr/include/bits/wordsize.h
  /usr/include/curses.h
  /usr/include/endian.h
+ /usr/include/eti.h
  /usr/include/features-time64.h
  /usr/include/features.h
  /usr/include/gnu/stubs-64.h
  /usr/include/gnu/stubs.h
+ /usr/include/math.h
+ /usr/include/menu.h
  /usr/include/ncurses_dll.h
  /usr/include/stdc-predef.h
  /usr/include/stdint.h
@@ -227,4 +255,28 @@ CMakeFiles/Inventory.dir/src/ui.c.o
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h
+
+Inventory
+ /usr/lib/Scrt1.o
+ /usr/lib/crti.o
+ /usr/lib/crtn.o
+ /usr/lib/libc.so
+ /usr/lib/libgcc_s.so
+ /usr/lib/libgcc_s.so.1
+ /usr/lib/libm.so
+ /usr/lib/libmenu.so
+ /usr/lib/libmenuw.so
+ /usr/lib/libncurses.so
+ /usr/lib/libncursesw.so
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a
+ /usr/lib/ld-linux-x86-64.so.2
+ /usr/lib/libc.so.6
+ /usr/lib/libc_nonshared.a
+ /usr/lib/libm.so.6
+ /usr/lib/libmvec.so.1
+ /home/slayer/Projects/Inventory-Management/build/CMakeFiles/Inventory.dir/src/hashTable.c.o
+ /home/slayer/Projects/Inventory-Management/build/CMakeFiles/Inventory.dir/src/main.c.o
+ /home/slayer/Projects/Inventory-Management/build/CMakeFiles/Inventory.dir/src/ui.c.o
 
