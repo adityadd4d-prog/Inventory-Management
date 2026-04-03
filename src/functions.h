@@ -72,7 +72,11 @@ Item* Search(char *key, Table *tab);
 Table* CreateHashTable(FILE *fp);
 Table* FillHashTable(FILE *fp);
 void Add(Table **tab, Item *ni);
+void BestSeller(Table *tab, char *fileName);
 FILE* LoadFile(char *fileName);
+void LowStock(Table *tab, char *fileName);
+void PurgeTable(Table *tab, char *fileName);
+void SlowStock(Table *tab, char *fileName);
 void WriteFile(Table *tab, char *fileName);
 
 //---For UI---
@@ -84,6 +88,8 @@ int MainMenu(void);
 int MyMenu(char **opt, int optNum, int y, int x);
 int ReportMenu(void);
 int SearchMenu(void);
+int UpdateMenu(void);
 void DisplayItem(Item *it);
+void UpdateItem(Table *tab);
 
 #endif

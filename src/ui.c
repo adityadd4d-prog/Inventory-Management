@@ -67,11 +67,11 @@ int FileMenu(void)
 
 int ItemMenu(void)
 {
-  char *opt[] = {"Search", "Update", "Add Item","View All", "Back"};
+  char *opt[] = {"Search", "Update", "Add Item", "Back"};
   attron(COLOR_PAIR(2));
   printw("---Item Menu---");
   attroff(COLOR_PAIR(2));
-  int ch = MyMenu(opt, 5, 1, 0);
+  int ch = MyMenu(opt, 4, 1, 0);
   return ch;
 }
 
@@ -149,16 +149,117 @@ void DisplayItem(Item *it)
   attron(COLOR_PAIR(2));
   printw("---ITEM---\n");
   attroff(COLOR_PAIR(2));
-  printw("Barcode        : %s\n",it->bar);
-  printw("Name           : %s\n",it->name);
-  printw("Price          : %.2f\n Rupees",it->price);
-  printw("Stock          : %d\n",it->stock);
-  printw("Transactions   : %d\n",it->trans);
-  printw("Stock Capacity : %d\n",it->cap);
-  printw("Stock Percent  : %.2f%\n",it->per);
-  printw("Status         : %s\n",it->status ? "Active" : "Discontinued");
+  printw("Barcode          : %s\n",it->bar);
+  printw("Name             : %s\n",it->name);
+  printw("Rate             : %.2fRupees\n",it->price);
+  printw("Stock            : %d\n",it->stock);
+  printw("Net Transactions : %d\n",it->trans);
+  printw("Stock Capacity   : %d\n",it->cap);
+  printw("Stock Percent    : %.2f%%\n",it->per);
+  printw("Status           : %s\n",it->status ? "Active" : "Discontinued");
   attron(COLOR_PAIR(4));
   mvprintw(12, 0,"Press any Key to Return Back.");
   attroff(COLOR_PAIR(4));
   getch();
+}
+
+int UpdateMenu(void)
+{
+  char *opt[] = {"Price", "Quantity", "Status", "Back"};
+  attron(COLOR_PAIR(2));
+  printw("---Updation Menu---");
+  attroff(COLOR_PAIR(2));
+  int ch = MyMenu(opt, 1, 3, 0);
+  return ch;
+}
+
+void UpdateItem(Table *tab)
+{
+  char buff[BUFFER]; 
+  echo();
+  curs_set(1);
+  mvprintw(1, 0,"Barcode : ");
+  getnstr(buff,BUFFER - 1);
+  Item *it = Search(buff, tab);
+  if (!it)
+  {
+    attron(COLOR_PAIR(3));
+    mvprintw(3, 0,"Barcode Not Found!");
+    attroff(COLOR_PAIR(3));
+    attron(COLOR_PAIR(4));
+    mvprintw(6, 0,"Press Enter Key to Return Back.");
+    attroff(COLOR_PAIR(4));
+    getch();
+    return;
+  }
+  Back:
+  clear();
+  switch (UpdateMenu())
+  {
+    case 1:
+      mvprintw(0, 0,"Old Price     : %.2f Rupees",it->price);
+      mvprintw(1, 0,"New Price     : ");
+      getnstr(buff,BUFFER - 1);
+      it->price = atof(buff);
+      mvprintw(2, 0,"Updated Price : %.2f Rupees",it->price);
+      attron(COLOR_PAIR(2));
+      mvprintw(4, 0,"Price Updated.");
+      attroff(COLOR_PAIR(2));
+      attron(COLOR_PAIR(4));
+      mvprintw(7, 0,"Press Enter Key to Return Back.");
+      attroff(COLOR_PAIR(4));
+      getch();
+      goto Back;
+    case 2:
+      mvprintw(0, 0,"Old Stock         : %d",it->stock);
+      mvprintw(1, 0,"Stock Transaction : ");
+      getnstr(buff,BUFFER - 1);
+      it->trans += atoi(buff);
+      it->stock += atoi(buff);
+      if (it->stock > it->cap)
+      {
+          it->cap = it->stock + it->stock * 0.25;
+          attron(COLOR_PAIR(2));
+          mvprintw(2, 0, "Increasing Stock Capacity Due To High Stock Intake.");
+          it->per = (it->stock/it->cap) * 100;
+          mvprintw(3, 0,"Updated Stock     : %d",it->stock);
+          mvprintw(5, 0,"Stock Updated.");
+          attroff(COLOR_PAIR(2));
+          attron(COLOR_PAIR(4));
+          mvprintw(8, 0,"Press Enter Key to Return Back.");
+          attroff(COLOR_PAIR(4));
+          getch();
+          goto Back;
+
+      }
+      it->per = (it->stock/it->cap) * 100;
+      mvprintw(2, 0,"Updated Stock     : %d",it->stock);
+      attron(COLOR_PAIR(2));
+      mvprintw(4, 0,"Stock Updated.");
+      attroff(COLOR_PAIR(2));
+      attron(COLOR_PAIR(4));
+      mvprintw(7, 0,"Press Enter Key to Return Back.");
+      attroff(COLOR_PAIR(4));
+      getch();
+      goto Back;
+    case 3:
+      mvprintw(0, 0,"Current Status   : %s",it->status ? "Active" : "Discontinued");
+      mvprintw(1, 0,"New Status [A/d] : ");
+      char ch = getch();
+      if (ch == 'D' || ch == 'd')
+        it->status = 0;
+      mvprintw(2, 0,"Updated Status   : %s",it->status ? "Active" : "Discontinued");
+      attron(COLOR_PAIR(2));
+      mvprintw(4, 0,"Status Updated.");
+      attroff(COLOR_PAIR(2));
+      attron(COLOR_PAIR(4));
+      mvprintw(7, 0,"Press Enter Key to Return Back.");
+      attroff(COLOR_PAIR(4));
+      getch();
+      goto Back;
+    case 4:
+      noecho();
+      curs_set(0);
+      return;
+  }
 }

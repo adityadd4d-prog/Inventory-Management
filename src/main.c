@@ -19,6 +19,8 @@ int main(void)
   refresh();
   MainBack:
   clear();
+  char fpath[PATH] = "/home/slayer/Projects/Inventory-Management/data/inventory.csv"; // Default Path for files
+  const char rpath[] = "/home/slayer/Projects/Inventory-Management/Reports/"; // default Path for Reports
   switch (MainMenu())
   {
     case 1:
@@ -33,7 +35,7 @@ int main(void)
             mvprintw(0, 0, "Hash Table Not Created.");
             attroff(COLOR_PAIR(3));
             attron(COLOR_PAIR(4));
-            mvprintw(3, 0,"Press any Key to Return Back.");
+            mvprintw(3, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
             getch();
             goto ItemBack;
@@ -41,7 +43,7 @@ int main(void)
           SearchBack:
           clear();
           char bar[BAR];
-          Item *it = Search(bar, tab);
+          Item *it;
           switch (SearchMenu())
           {
             case 1:
@@ -53,6 +55,7 @@ int main(void)
               getnstr(bar,BAR-1);
               curs_set(0);
               noecho();
+              it = Search(bar, tab);
               if (it)
                 DisplayItem(it);
               else 
@@ -61,7 +64,7 @@ int main(void)
                 mvprintw(0, 0, "Item Not Found!");
                 attroff(COLOR_PAIR(3));
                 attron(COLOR_PAIR(4));
-                mvprintw(3, 0,"Press any Key to Return Back.");
+                mvprintw(3, 0,"Press Enter Key to Return Back.");
                 attroff(COLOR_PAIR(4));
                 getch();
               }
@@ -86,11 +89,12 @@ int main(void)
                 mvprintw(5, 0, "OCR Recognition Failed!");
                 attroff(COLOR_PAIR(3));
                 attron(COLOR_PAIR(4));
-                mvprintw(8, 0,"Press any Key to Return Back.");
+                mvprintw(8, 0,"Press Enter Key to Return Back.");
                 attroff(COLOR_PAIR(4));
                 getch();
                 goto SearchBack;
               } 
+              it = Search(bar, tab);
               if (it)
                 DisplayItem(it);
               else 
@@ -99,7 +103,7 @@ int main(void)
                 mvprintw(0, 0, "Item Not Found!");
                 attroff(COLOR_PAIR(3));
                 attron(COLOR_PAIR(4));
-                mvprintw(3, 0,"Press any Key to Return Back.");
+                mvprintw(3, 0,"Press Enter Key to Return Back.");
                 attroff(COLOR_PAIR(4));
                 getch();
               }
@@ -108,58 +112,96 @@ int main(void)
               goto ItemBack;
           }
         case 2:
-          //update
+          attron(COLOR_PAIR(2));
+          mvprintw(0, 0, "---Item Updation---");
+          attroff(COLOR_PAIR(2));
+          UpdateItem(tab);
+          goto ItemBack;
         case 3:
           Item *ni = AddItem();
-          Add((Table**)tab, ni);
+          Add(&tab, ni);
           attron(COLOR_PAIR(3));
-          mvprintw(0, 0, "Item Added");
+          mvprintw(7, 0, "Item Added");
           attroff(COLOR_PAIR(3));
           attron(COLOR_PAIR(4));
-          mvprintw(3, 0,"Press any Key to Return Back.");
+          mvprintw(10, 0,"Press Enter Key to Return Back.");
           attroff(COLOR_PAIR(4));
           getch();
           goto ItemBack;
         case 4:
-          // view all
-        case 5:
           goto MainBack;
       }
     case 2:
+      ReportBack:
+      clear();
       switch (ReportMenu())
       {
+        char buff[PATH];
         case 1:
-          // Low stock items
+          snprintf(buff, PATH - 1, "%s%s", rpath,"Low_Stock.csv");
+          attron(COLOR_PAIR(2));
+          mvprintw(0, 0, "---Low Stock Report---");
+          attroff(COLOR_PAIR(2));
+          mvprintw(2, 0, "Report Created At : %s",buff);
+          attron(COLOR_PAIR(4));
+          mvprintw(5, 0,"Press Enter Key to Return Back.");
+          attroff(COLOR_PAIR(4));
+          LowStock(tab, buff);
+          getch();
+          goto ReportBack;
         case 2:
-          // Bestsellers
+          snprintf(buff, PATH - 1, "%s%s", rpath,"Bestsellers.csv");
+          attron(COLOR_PAIR(2));
+          mvprintw(0, 0, "---Bestseller Report---");
+          attroff(COLOR_PAIR(2));
+          mvprintw(2, 0, "Report Created At : %s",buff);
+          attron(COLOR_PAIR(4));
+          mvprintw(5, 0,"Press Enter Key to Return Back.");
+          attroff(COLOR_PAIR(4));
+          BestSeller(tab, buff);
+          getch();
+          goto ReportBack;
         case 3:
-          // slow stock
+          snprintf(buff, PATH - 1, "%s%s", rpath,"Slow_Stock.csv");
+          attron(COLOR_PAIR(2));
+          mvprintw(0, 0, "---Slow Stock Report---");
+          attroff(COLOR_PAIR(2));
+          mvprintw(2, 0, "Report Created At : %s",buff);
+          attron(COLOR_PAIR(4));
+          mvprintw(5, 0,"Press Enter Key to Return Back.");
+          attroff(COLOR_PAIR(4));
+          SlowStock(tab, buff);
+          getch();
+          goto ReportBack;
         case 4:
           goto MainBack;
-
       }
-
     case 3:
       if (AdminVerify())
       {
+        char ch;
         FileBack:
         clear();
         switch (FileMenu())
         {
           case 1:
-            char path[STR];
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Load File---");
             attroff(COLOR_PAIR(2));
-            attron(COLOR_PAIR(1));
-            mvprintw(1, 0,"Path : ");
-            echo();
-            curs_set(1);
-            getnstr(path, STR - 1);
-            curs_set(0);
-            noecho();
-            attroff(COLOR_PAIR(1));
-            fp = LoadFile(path);
+            mvprintw(1, 0, "Use Default Path [Y/N]: %s", fpath);
+            ch = getch();
+            if (ch == 'n' || ch =='N')
+            {
+              move(1,0);
+              clrtoeol();
+              mvprintw(1, 0,"Path : ");
+              echo();
+              curs_set(1);
+              getnstr(fpath, PATH - 1);
+              curs_set(0);
+              noecho();
+            }
+            fp = LoadFile(fpath);
             if (!fp)
               goto FileBack;
             tab = FillHashTable(fp);
@@ -168,14 +210,49 @@ int main(void)
             mvprintw(0, 0,"Hash Table Created");
             attroff(COLOR_PAIR(2));
             attron(COLOR_PAIR(4));
-            mvprintw(3, 0,"Press any Key to Return Back.");
+            mvprintw(3, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
             getch();
+            fclose(fp);
             goto FileBack;
           case 2:
-            // save file
+            attron(COLOR_PAIR(2));
+            mvprintw(0, 0,"---Save File---");
+            attroff(COLOR_PAIR(2));
+            mvprintw(1, 0, "Use Default Path [Y/N]: %s", fpath);
+            ch = getch();
+            if (ch == 'n' || ch =='N')
+            {
+              move(1,0);
+              clrtoeol();
+              mvprintw(1, 0,"Path : ");
+              echo();
+              curs_set(1);
+              getnstr(fpath, PATH - 1);
+              curs_set(0);
+              noecho();
+            }
+            WriteFile(tab,fpath);
+            attron(COLOR_PAIR(2));
+            mvprintw(3, 0,"File Saved at %s",fpath);
+            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(4));
+            mvprintw(6, 0,"Press Enter Key to Return Back.");
+            attroff(COLOR_PAIR(4));
+            refresh();
+            getch();
+            goto FileBack;
           case 3:
-            // purge discountinued Item 
+            attron(COLOR_PAIR(2));
+            mvprintw(0, 0,"---Purging Discontinued Items---");
+            attroff(COLOR_PAIR(2));
+            PurgeTable(tab, fpath);
+            mvprintw(2, 0,"Purging Completed");
+            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(4));
+            mvprintw(6, 0,"Press Enter Key to Return Back.");
+            attroff(COLOR_PAIR(4));
+            getch();
           case 4:
             goto MainBack;
         }
@@ -186,7 +263,7 @@ int main(void)
         mvprintw(4, 0,"Invalid Credentials!");
         attroff(COLOR_PAIR(3));
         attron(COLOR_PAIR(4));
-        mvprintw(7, 0,"Press any Key to Return Back.");
+        mvprintw(7, 0,"Press Enter Key to Return Back.");
         attroff(COLOR_PAIR(4));
         refresh();
         getch();
@@ -199,7 +276,7 @@ int main(void)
       mvprintw(2, 0,"https://github.com/adityadd4d-prog/Inventory-Management");
       attroff(COLOR_PAIR(2));
       attron(COLOR_PAIR(4));
-      mvprintw(5, 0,"Press any Key to Return Back.");
+      mvprintw(5, 0,"Press Enter Key to Return Back.");
       attroff(COLOR_PAIR(4));
       refresh();
       getch();

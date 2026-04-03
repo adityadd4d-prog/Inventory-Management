@@ -8,6 +8,7 @@ char* OCR(char *image)
   FILE *pipe = popen(command, "r");
   if (!pipe)
   {
+    puts("Scan Failed.");
     return NULL;
   }
   fgets(bar, BAR, pipe);
@@ -122,18 +123,7 @@ Item* Search(char *key, Table *tab)
   while (temp)
   {
     if (strcasecmp(temp->bar, key) == 0)
-      if (temp->status)
-        return temp;
-      else 
-        {
-          printf("The Searched Barcode Belongs to a Discontinued Item.\nWould You Still Like To Fetch Data [Y/N] : ");
-          int ch;
-          scanf("%c", &ch);
-          if (ch == 'n' || ch == 'N')
-            return NULL;
-          else 
-            return temp;
-        }
+      return temp;
     temp = temp->next;
   }
   return NULL;
@@ -237,13 +227,100 @@ FILE* LoadFile(char *fileName)
   return fp;
 }
 
+void BestSeller(Table *tab, char *fileName)
+{
+  int i;
+  FILE *fp = fopen(fileName, "w");
+  if (!fp)
+  {
+    return;
+  }
+  fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
+  for (i = 0; i < tab->cap; i++)
+  {
+    Item *temp = tab->buckets[i];
+    while (temp)
+    { if (temp->trans < 0 && temp->per < 34) 
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      temp = temp->next;
+    }
+  }
+  fclose(fp);
+  return;
+}
+
+void LowStock(Table *tab, char *fileName)
+{
+  int i;
+  FILE *fp = fopen(fileName, "w");
+  if (!fp)
+  {
+    return;
+  }
+  fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
+  for (i = 0; i < tab->cap; i++)
+  {
+    Item *temp = tab->buckets[i];
+    while (temp)
+    { if (temp->per < 34 && temp->status) 
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      temp = temp->next;
+    }
+  }
+  fclose(fp);
+  return;
+}
+
+void PurgeTable(Table *tab, char *fileName)
+{
+  int i;
+  FILE *fp = fopen(fileName, "w");
+  if (!fp)
+  {
+    return;
+  }
+  fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
+  for (i = 0; i < tab->cap; i++)
+  {
+    Item *temp = tab->buckets[i];
+    while (temp)
+    { if (temp->status) 
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      temp = temp->next;
+    }
+  }
+  fclose(fp);
+  return;
+}
+
+void SlowStock(Table *tab, char *fileName)
+{
+  int i;
+  FILE *fp = fopen(fileName, "w");
+  if (!fp)
+  {
+    return;
+  }
+  fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
+  for (i = 0; i < tab->cap; i++)
+  {
+    Item *temp = tab->buckets[i];
+    while (temp)
+    { if (temp->trans > 0 && temp->per > 67) 
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      temp = temp->next;
+    }
+  }
+  fclose(fp);
+  return;
+}
+
 void WriteFile(Table *tab, char *fileName)
 {
   int i;
   FILE *fp = fopen(fileName, "w");
   if (!fp)
   {
-    puts("File Creation Failed.\nTry Again.");
     return;
   }
   fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
