@@ -135,7 +135,7 @@ int FileMenu(Table *tab)
   mvprintw(0, 0, "---File Menu---");
   attroff(COLOR_PAIR(2));
   attron(COLOR_PAIR(4));
-  mvprintw(1, 0,"Total Items : %d | Active Items : %d | Discontinued Items : ", tab ? tab->size : 0, tab ? tab->act : 0, tab ? tab->dis : 0);
+  mvprintw(1, 0,"Total Items : %d | Active Items : %d | Discontinued Items : %d", tab ? tab->size : 0, tab ? tab->act : 0, tab ? tab->dis : 0);
   attroff(COLOR_PAIR(4));
   int ch = MyMenu(opt, 4, 2, 0);
   return ch;
@@ -345,16 +345,20 @@ void UpdateItem(Table *tab)
       goto Back;
     case 3:
       mvprintw(0, 0,"Current Status   : %s",it->status ? "Active" : "Discontinued");
-      mvprintw(1, 0,"New Status [A/d] : ");
+      mvprintw(1, 0,"New Status [A/D] : ");
       char ch = getch();
-      if (ch == 'D' || ch == 'd')
+      if ((ch == 'D' || ch == 'd') && it->status == 1)
       {
         it->status = 0;
-        tab->dis--;
-        tab->size--;
+        tab->dis++;
+        tab->act--;
       }
-      else 
-        it->status = 1;
+      if ((ch == 'A' || ch == 'a') && it->status == 0)
+      {
+          it->status = 1;
+          tab->dis--;
+          tab->act++;
+      }
       mvprintw(2, 0,"Updated Status   : %s",it->status ? "Active" : "Discontinued");
       attron(COLOR_PAIR(2));
       mvprintw(4, 0,"Status Updated.");
