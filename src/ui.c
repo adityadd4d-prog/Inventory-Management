@@ -59,16 +59,22 @@ int AdminVerify(void)
   attron(COLOR_PAIR(2));
   mvprintw(0, 0, "---Admin Verify---");
   attroff(COLOR_PAIR(2));
-  attron(COLOR_PAIR(1));
   echo();
   curs_set(1);
-  mvprintw(1, 0, "Username : ");
-  getnstr(user, STR - 1);
+  do 
+  {
+    mvprintw(1, 0, "Username : ");
+    clrtoeol();
+    getnstr(user, STR - 1);
+  } while (strlen(user) == 0);
   curs_set(0);
   noecho();
-  mvprintw(2, 0, "Password : ");
-  getnstr(pass, STR - 1);
-  attroff(COLOR_PAIR(1));
+  do 
+  {
+    mvprintw(1, 0, "Username : ");
+    clrtoeol();
+    getnstr(pass, STR - 1);
+  } while (strlen(pass) == 0);
   if ((strcmp(user,ADMIN) == 0) && (strcmp(pass,PASS) == 0))
     return 1;
   else 
