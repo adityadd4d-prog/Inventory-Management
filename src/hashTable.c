@@ -55,7 +55,7 @@ int Count(FILE *fp)
 
 int Hash(char *key, int cap)
 {
-  int hash = 5381;
+  unsigned int hash = 5381;
   int i = 0;
   while (key[i] != '\0')
   {
@@ -227,7 +227,7 @@ void BestSeller(Table *tab, char *fileName)
     Item *temp = tab->buckets[i];
     while (temp)
     { if (temp->trans < 0 && temp->per < 34) 
-        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i+1,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
     }
   }
@@ -249,7 +249,7 @@ void LowStock(Table *tab, char *fileName)
     Item *temp = tab->buckets[i];
     while (temp)
     { if (temp->per < 34 && temp->status) 
-        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i+1,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
     }
   }
@@ -271,7 +271,7 @@ void PurgeTable(Table *tab, char *fileName)
     Item *temp = tab->buckets[i];
     while (temp)
     { if (temp->status) 
-        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i+1,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
     }
   }
@@ -293,7 +293,7 @@ void SlowStock(Table *tab, char *fileName)
     Item *temp = tab->buckets[i];
     while (temp)
     { if (temp->trans > 0 && temp->per > 67) 
-        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+        fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i+1,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
     }
   }
@@ -315,7 +315,7 @@ void WriteFile(Table *tab, char *fileName)
     Item *temp = tab->buckets[i];
     while (temp)
     {  
-      fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
+      fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i+1,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
     }
   }

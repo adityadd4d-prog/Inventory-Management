@@ -37,7 +37,7 @@ int main(void)
       }
       ItemBack:
       clear();
-      switch (ItemMenu())
+      switch (ItemMenu(tab))
       {
         case 1:
           SearchBack:
@@ -47,6 +47,7 @@ int main(void)
           switch (SearchMenu())
           {
             case 1:
+              clear();
               attron(COLOR_PAIR(2));
               mvprintw(0, 0, "Enter Barcode : ");
               attroff(COLOR_PAIR(2));
@@ -195,7 +196,7 @@ int main(void)
         char ch;
         FileBack:
         clear();
-        switch (FileMenu())
+        switch (FileMenu(tab))
         {
           case 1:
             attron(COLOR_PAIR(2));
@@ -223,7 +224,10 @@ int main(void)
             mvprintw(0, 0,"Hash Table Created");
             attroff(COLOR_PAIR(2));
             attron(COLOR_PAIR(4));
-            mvprintw(3, 0,"Press Enter Key to Return Back.");
+            mvprintw(2, 0,"%d Items Loaded.", tab->size);
+            attroff(COLOR_PAIR(4));
+            attron(COLOR_PAIR(4));
+            mvprintw(5, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
             getch();
             fclose(fp);
@@ -281,6 +285,7 @@ int main(void)
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Purging Discontinued Items---");
             attroff(COLOR_PAIR(2));
+            clrtobot();
             PurgeTable(tab, fpath);
             mvprintw(2, 0,"Purging Completed");
             attroff(COLOR_PAIR(2));
@@ -295,14 +300,6 @@ int main(void)
       }
       else 
       {
-        attron(COLOR_PAIR(3));
-        mvprintw(4, 0,"Invalid Credentials!");
-        attroff(COLOR_PAIR(3));
-        attron(COLOR_PAIR(4));
-        mvprintw(7, 0,"Press Enter Key to Return Back.");
-        attroff(COLOR_PAIR(4));
-        refresh();
-        getch();
         goto MainBack;
       }
     case 4:

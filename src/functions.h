@@ -6,6 +6,7 @@
 //------------------
 //---Header Files---
 //------------------
+#include <ctype.h>
 #include <math.h>
 #include <menu.h>
 #include <ncurses.h>
@@ -19,7 +20,7 @@
 //---------------------
 
 //--For Hash Table---
-#define BAR 15
+#define BAR 14
 #define BUFFER 256
 #define PASS "panda"
 #define READ 9
@@ -82,8 +83,8 @@ void WriteFile(Table *tab, char *fileName);
 //---For UI---
 Item* AddItem(void);
 int AdminVerify(void);
-int FileMenu(void);
-int ItemMenu(void);
+int FileMenu(Table *tab);
+int ItemMenu(Table *tab);
 int MainMenu(void);
 int MyMenu(char **opt, int optNum, int y, int x);
 int ReportMenu(void);

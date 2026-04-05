@@ -60,6 +60,7 @@ CMakeFiles/Inventory.dir/src/hashTable.c.o: /home/slayer/Projects/Inventory-Mana
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wchar.h \
   /usr/include/bits/wordsize.h \
+  /usr/include/ctype.h \
   /usr/include/curses.h \
   /usr/include/endian.h \
   /usr/include/eti.h \
@@ -144,6 +145,7 @@ CMakeFiles/Inventory.dir/src/main.c.o: /home/slayer/Projects/Inventory-Managemen
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wchar.h \
   /usr/include/bits/wordsize.h \
+  /usr/include/ctype.h \
   /usr/include/curses.h \
   /usr/include/endian.h \
   /usr/include/eti.h \
@@ -228,6 +230,7 @@ CMakeFiles/Inventory.dir/src/ui.c.o: /home/slayer/Projects/Inventory-Management/
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wchar.h \
   /usr/include/bits/wordsize.h \
+  /usr/include/ctype.h \
   /usr/include/curses.h \
   /usr/include/endian.h \
   /usr/include/eti.h \
@@ -332,6 +335,8 @@ CMakeFiles/Inventory.dir/src/main.c.o:
 /usr/include/features-time64.h:
 
 /usr/include/curses.h:
+
+/usr/include/ctype.h:
 
 /usr/lib/libmenu.so:
 

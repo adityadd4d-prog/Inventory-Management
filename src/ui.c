@@ -4,46 +4,83 @@ Item* AddItem(void)
 {
   Item *ni = (Item*)malloc(sizeof(Item));
   char buff[BUFFER];
-  attron(COLOR_PAIR(2));
-  mvprintw(0, 0, "---Add Item---");
-  attroff(COLOR_PAIR(2));
   echo();
   curs_set(1);
-  do 
+  int valid;
+  do
   {
-    mvprintw(1, 0, "Barcode        : ");
+    valid = 0;
+    clear();
+    attron(COLOR_PAIR(2));
+    mvprintw(0, 0, "---Add Item---");
+    attroff(COLOR_PAIR(2));
+    mvprintw(1, 0, "Barcode (13 digits) : ");
     clrtoeol();
     getnstr(buff, BAR - 1);
-  } while (strlen(buff) == 0);
+    if (strlen(buff) == 13)
+    {
+      valid = 1;
+      for (int i = 0; i < 13; i++)
+        if (!isdigit((unsigned char)buff[i]))
+        {  
+          valid = 0;
+          break;
+        }
+    }
+    if (!valid)
+    {
+      attron(COLOR_PAIR(3));
+      mvprintw(2, 0, "Enter exactly 13 numeric digits!");
+      attroff(COLOR_PAIR(3));
+      attron(COLOR_PAIR(4));
+      mvprintw(5, 0,"Press Enter Key to Enter Again.");
+      attroff(COLOR_PAIR(4));
+      getch();
+    }
+  } while (!valid);
   strcpy(ni->bar, buff);
   do
   {
-    mvprintw(2, 0, "Name           : ");
+    mvprintw(2, 0, "Name                : ");
     clrtoeol();
     getnstr(buff, STR - 1);
   } while (strlen(buff) == 0);
   strcpy(ni->name, buff);
   do 
   {
-    mvprintw(3, 0, "Price          : ");
+    mvprintw(3, 0, "Price               : ");
     clrtoeol();
     getnstr(buff, BUFFER - 1);
     ni->price = atof(buff);
   } while (ni->price <= 0);
   do 
   {
-    mvprintw(4, 0, "Stock          : ");
+    mvprintw(4, 0, "Stock               : ");
     clrtoeol();
     getnstr(buff, BUFFER - 1);
     ni->stock = atoi(buff);
   } while (ni->stock < 0);
   do 
   {
-    mvprintw(5, 0, "Stock Capacity : ");
+    valid = 1;
+    mvprintw(5, 0, "Stock Capacity      : ");
     clrtoeol();
     getnstr(buff, BUFFER - 1);
     ni->cap = atoi(buff);
-  } while (ni->cap <= 0 || ni->cap <= ni->stock);
+    if (ni->cap <= 0 || ni->cap <= ni->stock)
+    { 
+      valid = 0;
+      attron(COLOR_PAIR(3));
+      mvprintw(7, 0, "Enter Stock Capacity is less than the current Stock!");
+      attroff(COLOR_PAIR(3));
+      attron(COLOR_PAIR(4));
+      mvprintw(10, 0,"Press Enter Key to Enter Again.");
+      attroff(COLOR_PAIR(4));
+      getch();
+      clrtobot();
+    }
+
+  } while (!valid);
   ni->trans = 0;
   ni->per = ((float)ni->stock / ni->cap) * 100.0;
   ni->status = 1;
@@ -71,33 +108,49 @@ int AdminVerify(void)
   noecho();
   do 
   {
-    mvprintw(1, 0, "Username : ");
+    mvprintw(2, 0, "Password : ");
     clrtoeol();
     getnstr(pass, STR - 1);
   } while (strlen(pass) == 0);
   if ((strcmp(user,ADMIN) == 0) && (strcmp(pass,PASS) == 0))
     return 1;
-  else 
+  else
+  {
+    attron(COLOR_PAIR(3));
+    mvprintw(4, 0,"Invalid Credentials!");
+    attroff(COLOR_PAIR(3));
+    attron(COLOR_PAIR(4));
+    mvprintw(7, 0,"Press Enter Key to Return Back.");
+    attroff(COLOR_PAIR(4));
+    refresh();
+    getch();
     return 0;
+  }
 }
 
-int FileMenu(void)
+int FileMenu(Table *tab)
 {
   char *opt[] = {"Load File", "Save File", "Purge Discontinued Items", "Back"};
   attron(COLOR_PAIR(2));
-  printw("---File Menu---");
+  mvprintw(0, 0, "---File Menu---");
   attroff(COLOR_PAIR(2));
-  int ch = MyMenu(opt, 4, 1, 0);
+  attron(COLOR_PAIR(4));
+  mvprintw(1, 0,"Total Items : %d", tab ? tab->size : 0);
+  attroff(COLOR_PAIR(4));
+  int ch = MyMenu(opt, 4, 2, 0);
   return ch;
 }
 
-int ItemMenu(void)
+int ItemMenu(Table *tab)
 {
   char *opt[] = {"Search", "Update", "Add Item", "Back"};
   attron(COLOR_PAIR(2));
-  printw("---Item Menu---");
+  mvprintw(0, 0, "---Item Menu---");
   attroff(COLOR_PAIR(2));
-  int ch = MyMenu(opt, 4, 1, 0);
+  attron(COLOR_PAIR(4));
+  mvprintw(1, 0,"Total Items : %d",tab->size);
+  attroff(COLOR_PAIR(4));
+  int ch = MyMenu(opt, 4, 2, 0);
   return ch;
 }
 
@@ -220,6 +273,9 @@ void UpdateItem(Table *tab)
     getch();
     return;
   }
+  if (!it->status)
+    if (!AdminVerify())
+      return;
   Back:
   clear();
   switch (UpdateMenu())
