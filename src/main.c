@@ -123,6 +123,7 @@ int main(void)
           Item *ni = AddItem();
           Add(&tab, ni);
           tab->size++;
+          tab->act++;
           attron(COLOR_PAIR(3));
           mvprintw(7, 0, "Item Added");
           attroff(COLOR_PAIR(3));

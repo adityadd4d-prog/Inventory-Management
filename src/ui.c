@@ -135,7 +135,7 @@ int FileMenu(Table *tab)
   mvprintw(0, 0, "---File Menu---");
   attroff(COLOR_PAIR(2));
   attron(COLOR_PAIR(4));
-  mvprintw(1, 0,"Total Items : %d", tab ? tab->size : 0);
+  mvprintw(1, 0,"Total Items : %d | Active Items : %d | Discontinued Items : ", tab ? tab->size : 0, tab ? tab->act : 0, tab ? tab->dis : 0);
   attroff(COLOR_PAIR(4));
   int ch = MyMenu(opt, 4, 2, 0);
   return ch;
@@ -148,7 +148,7 @@ int ItemMenu(Table *tab)
   mvprintw(0, 0, "---Item Menu---");
   attroff(COLOR_PAIR(2));
   attron(COLOR_PAIR(4));
-  mvprintw(1, 0,"Total Items : %d",tab->size);
+  mvprintw(1, 0,"Total Items : %d | Active Items : %d | Discontinued Items : %d",tab->size, tab->act, tab->dis);
   attroff(COLOR_PAIR(4));
   int ch = MyMenu(opt, 4, 2, 0);
   return ch;
@@ -348,7 +348,11 @@ void UpdateItem(Table *tab)
       mvprintw(1, 0,"New Status [A/d] : ");
       char ch = getch();
       if (ch == 'D' || ch == 'd')
+      {
         it->status = 0;
+        tab->dis--;
+        tab->size--;
+      }
       else 
         it->status = 1;
       mvprintw(2, 0,"Updated Status   : %s",it->status ? "Active" : "Discontinued");

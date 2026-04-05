@@ -56,6 +56,8 @@ typedef struct
   Item **buckets;
   int cap;
   int size;
+  int dis;
+  int act;
 } Table;
 
 

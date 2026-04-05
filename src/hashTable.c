@@ -123,6 +123,8 @@ Table* CreateHashTable(FILE *fp)
   Table *tab = (Table*)malloc(sizeof(Table));
   tab->cap = cap;
   tab->size = size;
+  tab->dis = 0;
+  tab->act = 0;
   Item **buc = (Item**)malloc(sizeof(Item*) * cap);
   for (i = 0; i < cap; i++)
   {
@@ -151,6 +153,7 @@ Table* FillHashTable(FILE *fp)
 void Add(Table **tab, Item *ni)
 {
   int hash = Hash(ni->bar, (*tab)->cap);
+  ni->status ? (*tab)->act++ : (*tab)->dis++;
   if ((*tab)->buckets[hash] == NULL)
   {
     (*tab)->buckets[hash] = ni;
@@ -159,7 +162,7 @@ void Add(Table **tab, Item *ni)
   {
     Item *temp = (*tab)->buckets[hash];
     while (temp->next != NULL)
-          temp = temp->next;
+      temp = temp->next;
     temp->next = ni;
   }
   return;
