@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-//CSV File Format :-Index,Bar code,Name,Price,Stock,TransactionsOfItems,Capacity,Percent Stock,Status 
+//CSV File Format :-Index,Bar code,Name,Price,Stock,NetTransactions,Capacity,Percent Stock,Status 
 
 //------------------
 //---Header Files---

@@ -19,26 +19,26 @@ char* OCR(char *image)
 
 int BucketSize(int size)
 {
-    if (size <= 0)
-      return 7;
-    int i, n;
-    double cap = size / 5.0;
-    cap += cap * 0.25;
-    n = (int)ceil(cap) - 1;
-    while (1)
-    {
-        int is_prime = 1;
-        n++;
-        if (n % 2 == 0 || n % 3 == 0) 
-          continue;
-        for (i = 5; i * i <= n; i += 6)
-            if (n % i == 0 || n % (i + 2) == 0)
-            {
-              is_prime = 0;
-              break;
-            }
-        if (is_prime)
-          return n;
+  if (size <= 0)
+    return 7;
+  int i, n;
+  double cap = size / 5.0;
+  cap += cap * 0.25;
+  n = (int)ceil(cap) - 1;
+  while (1)
+  {
+    int is_prime = 1;
+    n++;
+    if (n % 2 == 0 || n % 3 == 0) 
+      continue;
+    for (i = 5; i * i <= n; i += 6)
+      if (n % i == 0 || n % (i + 2) == 0)
+      {
+          is_prime = 0;
+          break;
+      }
+    if (is_prime)
+      return n;
     }
 }
 
@@ -55,7 +55,7 @@ int Count(FILE *fp)
 
 int Hash(char *key, int cap)
 {
-  unsigned int hash = 5381;
+  int hash = 5381;
   int i = 0;
   while (key[i] != '\0')
   {

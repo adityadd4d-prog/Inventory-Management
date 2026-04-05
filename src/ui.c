@@ -9,31 +9,36 @@ Item* AddItem(void)
   attroff(COLOR_PAIR(2));
   echo();
   curs_set(1);
-  do {
+  do 
+  {
     mvprintw(1, 0, "Barcode        : ");
     clrtoeol();
     getnstr(buff, BAR - 1);
   } while (strlen(buff) == 0);
   strcpy(ni->bar, buff);
-  do {
+  do
+  {
     mvprintw(2, 0, "Name           : ");
     clrtoeol();
     getnstr(buff, STR - 1);
   } while (strlen(buff) == 0);
   strcpy(ni->name, buff);
-  do {
+  do 
+  {
     mvprintw(3, 0, "Price          : ");
     clrtoeol();
     getnstr(buff, BUFFER - 1);
     ni->price = atof(buff);
   } while (ni->price <= 0);
-  do {
+  do 
+  {
     mvprintw(4, 0, "Stock          : ");
     clrtoeol();
     getnstr(buff, BUFFER - 1);
     ni->stock = atoi(buff);
   } while (ni->stock < 0);
-  do {
+  do 
+  {
     mvprintw(5, 0, "Stock Capacity : ");
     clrtoeol();
     getnstr(buff, BUFFER - 1);
@@ -102,41 +107,41 @@ int MainMenu(void)
 
 int MyMenu(char **opt, int optNum, int y, int x)
 {
-    int i, key, ch = optNum - 1;
-    MENU *menu;
-    ITEM *cur, **all;
-    all = (ITEM**)calloc(optNum + 1, sizeof(ITEM*));
-    for (i = 0; i < optNum; i++)
-      all[i] = new_item(opt[i],"");
-    all[i] = (ITEM*)NULL;
-    menu = new_menu(all);
-    set_menu_win(menu, stdscr);
-    set_menu_sub(menu, derwin(stdscr, optNum, 30, y, x));
-    post_menu(menu);
-    refresh();
-    while ((key = getch()) != F1) 
+  int i, key, ch = optNum - 1;
+  MENU *menu;
+  ITEM *cur, **all;
+  all = (ITEM**)calloc(optNum + 1, sizeof(ITEM*));
+  for (i = 0; i < optNum; i++)
+    all[i] = new_item(opt[i],"");
+  all[i] = (ITEM*)NULL;
+  menu = new_menu(all);
+  set_menu_win(menu, stdscr);
+  set_menu_sub(menu, derwin(stdscr, optNum, 30, y, x));
+  post_menu(menu);
+  refresh();
+  while ((key = getch()) != F1) 
+  {
+    switch (key)
     {
-        switch (key) {
-        case KEY_DOWN:
-            menu_driver(menu, REQ_DOWN_ITEM);
-            break;
-        case KEY_UP:
-            menu_driver(menu, REQ_UP_ITEM);
-            break;
-        case ENTER:
-            cur = current_item(menu);
-            ch = item_index(cur) + 1;
-            goto end;
-        }
+      case KEY_DOWN:
+        menu_driver(menu, REQ_DOWN_ITEM);
+        break;
+      case KEY_UP:
+        menu_driver(menu, REQ_UP_ITEM);
+        break;
+      case ENTER:
+        cur = current_item(menu);
+        ch = item_index(cur) + 1;
+        goto end;
     }
-    end:
-    unpost_menu(menu);
-    refresh();
-    for (i = 0; i < optNum; i++)
-      free_item(all[i]);
-    delwin(sub);
-    free_menu(menu);
-    return ch;
+  }
+  end:
+  unpost_menu(menu);
+  refresh();
+  for (i = 0; i < optNum; i++)
+    free_item(all[i]);
+  free_menu(menu);
+  return ch;
 }
 
 int ReportMenu(void)
@@ -215,7 +220,8 @@ void UpdateItem(Table *tab)
   {
     case 1:
       mvprintw(0, 0,"Old Price     : %.2f Rupees",it->price);
-      do {
+      do 
+      {
         curs_set(1);
         mvprintw(1, 0,"New Price     : ");
         clrtoeol();
@@ -237,7 +243,8 @@ void UpdateItem(Table *tab)
     case 2:
       mvprintw(0, 0,"Old Stock         : %d",it->stock);
       int trans;
-      do {
+      do 
+      {
         curs_set(1);
         mvprintw(1, 0,"Stock Transaction : ");
         clrtoeol();
@@ -251,18 +258,18 @@ void UpdateItem(Table *tab)
       it->stock += trans;
       if (it->stock > it->cap)
       {
-          it->cap = it->stock + it->stock * 0.25;
-          attron(COLOR_PAIR(2));
-          mvprintw(2, 0, "Increasing Stock Capacity Due To High Stock Intake.");
-          it->per = (it->stock/it->cap) * 100;
-          mvprintw(3, 0,"Updated Stock     : %d",it->stock);
-          mvprintw(5, 0,"Stock Updated.");
-          attroff(COLOR_PAIR(2));
-          attron(COLOR_PAIR(4));
-          mvprintw(8, 0,"Press Enter Key to Return Back.");
-          attroff(COLOR_PAIR(4));
-          getch();
-          goto Back;
+        it->cap = it->stock + it->stock * 0.25;
+        attron(COLOR_PAIR(2));
+        mvprintw(2, 0, "Increasing Stock Capacity Due To High Stock Intake.");
+        it->per = (it->stock/it->cap) * 100;
+        mvprintw(3, 0,"Updated Stock     : %d",it->stock);
+        mvprintw(5, 0,"Stock Updated.");
+        attroff(COLOR_PAIR(2));
+        attron(COLOR_PAIR(4));
+        mvprintw(8, 0,"Press Enter Key to Return Back.");
+        attroff(COLOR_PAIR(4));
+        getch();
+        goto Back;
       }
       it->per = ((float)it->stock/it->cap) * 100;
       mvprintw(2, 0,"Updated Stock     : %d",it->stock);

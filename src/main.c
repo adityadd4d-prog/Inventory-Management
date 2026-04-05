@@ -121,7 +121,7 @@ int main(void)
         case 3:
           Item *ni = AddItem();
           Add(&tab, ni);
-          (*tab)->size++;
+          tab->size++;
           attron(COLOR_PAIR(3));
           mvprintw(7, 0, "Item Added");
           attroff(COLOR_PAIR(3));
@@ -201,7 +201,7 @@ int main(void)
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Load File---");
             attroff(COLOR_PAIR(2));
-            mvprintw(1, 0, "Use Default Path [Y/N]: %s", fpath);
+            mvprintw(1, 0, "Use Default Path [Y/n]: %s", fpath);
             ch = getch();
             if (ch == 'n' || ch =='N')
             {
@@ -243,7 +243,7 @@ int main(void)
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Save File---");
             attroff(COLOR_PAIR(2));
-            mvprintw(1, 0, "Use Default Path [Y/N]: %s", fpath);
+            mvprintw(1, 0, "Use Default Path [Y/n]: %s", fpath);
             ch = getch();
             if (ch == 'n' || ch =='N')
             {
