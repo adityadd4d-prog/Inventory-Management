@@ -325,3 +325,30 @@ void WriteFile(Table *tab, char *fileName)
   fclose(fp);
   return;
 }
+
+void DeleteTable(Table *tab)
+{
+  for (int i = 0; i < tab->cap; i++)
+  {
+    Item *curr = tab->buckets[i];
+    while (curr)
+    {
+      Item *next = curr->next;
+      free(curr);
+      curr = next;
+    }
+  }
+  free(tab->buckets);
+  free(tab);
+}
+
+int LibreOfficeLaunch(char *file)
+{
+  char command[PATH];
+  snprintf(command, PATH - 1, "xdg-open \"%s\" 2>/dev/null", file);
+  FILE *p = popen(command);
+  if (p)
+    return 1;
+  else 
+    return 0;
+}

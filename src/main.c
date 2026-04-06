@@ -117,6 +117,7 @@ int main(void)
           attron(COLOR_PAIR(2));
           mvprintw(0, 0, "---Item Updation---");
           attroff(COLOR_PAIR(2));
+          clrtobot();
           UpdateItem(tab);
           goto ItemBack;
         case 3:
@@ -152,16 +153,38 @@ int main(void)
       switch (ReportMenu())
       {
         char buff[PATH];
+        char ch;
         case 1:
           snprintf(buff, PATH - 1, "%s%s", rpath,"Low_Stock.csv");
           attron(COLOR_PAIR(2));
           mvprintw(0, 0, "---Low Stock Report---");
           attroff(COLOR_PAIR(2));
           mvprintw(2, 0, "Report Created At : %s",buff);
-          attron(COLOR_PAIR(4));
-          mvprintw(5, 0,"Press Enter Key to Return Back.");
-          attroff(COLOR_PAIR(4));
           LowStock(tab, buff);
+          attron(COLOR_PAIR(4));
+          mvprintw(5, 0,"Press Enter Key to Return Back or O to open the Report Using LibreOffice Calc.");
+          attroff(COLOR_PAIR(4));
+          ch = getch();
+          if (ch == 'o' || ch == 'O')
+          {
+            clear();
+            if (LibreOfficeLaunch(buff))
+            { 
+              attron(COLOR_PAIR(2));
+              mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
+              attroff(COLOR_PAIR(2));
+            }
+            else 
+            {
+              attron(COLOR_PAIR(3);
+              mvprintw(0, 0, "LibreOffice Calc Launch Failed.");
+              attroff(COLOR_PAIR(3);
+            }
+
+            attron(COLOR_PAIR(4));
+            mvprintw(3, 0,"Press Enter Key to Return Back.");
+            attroff(COLOR_PAIR(4));
+          }
           getch();
           goto ReportBack;
         case 2:
@@ -170,10 +193,31 @@ int main(void)
           mvprintw(0, 0, "---Bestseller Report---");
           attroff(COLOR_PAIR(2));
           mvprintw(2, 0, "Report Created At : %s",buff);
-          attron(COLOR_PAIR(4));
-          mvprintw(5, 0,"Press Enter Key to Return Back.");
-          attroff(COLOR_PAIR(4));
           BestSeller(tab, buff);
+          attron(COLOR_PAIR(4));
+          mvprintw(5, 0,"Press Enter Key to Return Back or O to open the Report Using LibreOffice Calc.");
+          attroff(COLOR_PAIR(4));
+          ch = getch();
+          if (ch == 'o' || ch == 'O')
+          {
+            clear();
+            if (LibreOfficeLaunch(buff))
+            { 
+              attron(COLOR_PAIR(2));
+              mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
+              attroff(COLOR_PAIR(2));
+            }
+            else 
+            {
+              attron(COLOR_PAIR(3);
+              mvprintw(0, 0, "LibreOffice Calc Launch Failed.");
+              attroff(COLOR_PAIR(3);
+            }
+
+            attron(COLOR_PAIR(4));
+            mvprintw(3, 0,"Press Enter Key to Return Back.");
+            attroff(COLOR_PAIR(4));
+          }
           getch();
           goto ReportBack;
         case 3:
@@ -182,10 +226,31 @@ int main(void)
           mvprintw(0, 0, "---Slow Stock Report---");
           attroff(COLOR_PAIR(2));
           mvprintw(2, 0, "Report Created At : %s",buff);
-          attron(COLOR_PAIR(4));
-          mvprintw(5, 0,"Press Enter Key to Return Back.");
-          attroff(COLOR_PAIR(4));
           SlowStock(tab, buff);
+          attron(COLOR_PAIR(4));
+          mvprintw(5, 0,"Press Enter Key to Return Back or O to open the Report Using LibreOffice Calc.");
+          attroff(COLOR_PAIR(4));
+          ch = getch();
+          if (ch == 'o' || ch == 'O')
+          {
+            clear();
+            if (LibreOfficeLaunch(buff))
+            { 
+              attron(COLOR_PAIR(2));
+              mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
+              attroff(COLOR_PAIR(2));
+            }
+            else 
+            {
+              attron(COLOR_PAIR(3);
+              mvprintw(0, 0, "LibreOffice Calc Launch Failed.");
+              attroff(COLOR_PAIR(3);
+            }
+
+            attron(COLOR_PAIR(4));
+            mvprintw(3, 0,"Press Enter Key to Return Back.");
+            attroff(COLOR_PAIR(4));
+          }
           getch();
           goto ReportBack;
         case 4:
@@ -200,6 +265,23 @@ int main(void)
         switch (FileMenu(tab))
         {
           case 1:
+            if (tab)
+            {
+              attron(COLOR_PAIR(3));
+              mvprintw(0, 0, "Hash Table Already in Memory.");
+              attroff(COLOR_PAIR(3));
+              attron(COLOR_PAIR(4));
+              mvprintw(3, 0,"Do you want to Delete Current Table and load a New One [y/N] : ");
+              attroff(COLOR_PAIR(4));
+              char ch = getch();
+              if (ch == 'Y' || ch == 'y')
+              {
+                DeleteTable(tab);
+                tab = NULL;
+              }
+              else 
+                goto FileBack;
+            }
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Load File---");
             attroff(COLOR_PAIR(2));
@@ -224,9 +306,9 @@ int main(void)
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"Hash Table Created");
             attroff(COLOR_PAIR(2));
-            attron(COLOR_PAIR(4));
-            mvprintw(2, 0,"%d Items Loaded.", tab->size);
-            attroff(COLOR_PAIR(4));
+            attron(COLOR_PAIR(2));
+            mvprintw(2, 0,"Items Loaded : %d", tab->size);
+            attroff(COLOR_PAIR(2));
             attron(COLOR_PAIR(4));
             mvprintw(5, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
@@ -248,6 +330,7 @@ int main(void)
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Save File---");
             attroff(COLOR_PAIR(2));
+            clrtobot();
             mvprintw(1, 0, "Use Default Path [Y/n]: %s", fpath);
             ch = getch();
             if (ch == 'n' || ch =='N')
@@ -264,9 +347,10 @@ int main(void)
             WriteFile(tab,fpath);
             attron(COLOR_PAIR(2));
             mvprintw(3, 0,"File Saved at %s",fpath);
+            mvprintw(4, 0,"Items Saved : %d",tab->size);
             attroff(COLOR_PAIR(2));
             attron(COLOR_PAIR(4));
-            mvprintw(6, 0,"Press Enter Key to Return Back.");
+            mvprintw(7, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
             refresh();
             getch();
@@ -289,9 +373,12 @@ int main(void)
             clrtobot();
             PurgeTable(tab, fpath);
             mvprintw(2, 0,"Purging Completed");
+            mvprintw(3, 0,"Items Purged : %d", tab->dis);
             attroff(COLOR_PAIR(2));
+            tab->size = tab->act;
+            tab->dis = 0;
             attron(COLOR_PAIR(4));
-            mvprintw(6, 0,"Press Enter Key to Return Back.");
+            mvprintw(7, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
             getch();
             goto FileBack;
@@ -305,19 +392,66 @@ int main(void)
       }
     case 4:
       mvprintw(0, 0,"Inventory Management System V1.0");
-      mvprintw(1, 0,"For The Code Visit Github :-");
+      mvprintw(1, 0"Devloped By : Aditya Patel" )
+      mvprintw(2, 0,"For The Code Visit Github :-");
       attron(COLOR_PAIR(2));
-      mvprintw(2, 0,"https://github.com/adityadd4d-prog/Inventory-Management");
+      mvprintw(3, 0,"https://github.com/adityadd4d-prog/Inventory-Management");
       attroff(COLOR_PAIR(2));
       attron(COLOR_PAIR(4));
-      mvprintw(5, 0,"Press Enter Key to Return Back.");
+      mvprintw(6, 0,"Press Enter Key to Return Back.");
       attroff(COLOR_PAIR(4));
       refresh();
       getch();
       goto MainBack;
     case 5:
-      printw("Exiting Program...");
-      refresh();
+      if (tab)
+      {
+        attron(COLOR_PAIR(2));
+        mvprintw(0, 0, "---Exit Sequence---");
+        attroff(COLOR_PAIR(2));
+        attron(COLOR_PAIR(3));
+        mvprintw(1, 0, "Hash Table in Memory.");
+        attroff(COLOR_PAIR(3));
+        attron(COLOR_PAIR(4));
+        mvprintw(3, 0,"Would you Like to Save it in Persistance Storage [y/N] : ");
+        attroff(COLOR_PAIR(4));
+        char ch = getch();
+        if (ch == 'Y' || ch == 'y')
+        {
+          clear();
+          if (AdminVerify())
+          {
+            clear();
+            attron(COLOR_PAIR(2));
+            mvprintw(0, 0, "---Exit Sequence---");
+            attroff(COLOR_PAIR(2));
+            mvprintw(1, 0, "Use Default Path [Y/n]: %s", fpath);
+            ch = getch();
+            if (ch == 'n' || ch =='N')
+            {
+              move(1,0);
+              clrtoeol();
+              mvprintw(1, 0,"Path : ");
+              echo();
+              curs_set(1);
+              getnstr(fpath, PATH - 1);
+              curs_set(0);
+              noecho();
+            }
+            WriteFile(tab,fpath);
+            attron(COLOR_PAIR(2));
+            mvprintw(3, 0,"File Saved at %s",fpath);
+            mvprintw(4, 0,"Items Saved : %d",tab->size);
+            attroff(COLOR_PAIR(2));
+            DeleteTable(tab);
+            tab = NULL;
+            attron(COLOR_PAIR(4));
+            mvprintw(7, 0,"Press Enter Key to Exit Program.");
+            attroff(COLOR_PAIR(4));
+            getch();
+          }
+        }
+      }
       goto end;
   }
   end:

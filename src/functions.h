@@ -76,10 +76,12 @@ Table* CreateHashTable(FILE *fp);
 Table* FillHashTable(FILE *fp);
 void Add(Table **tab, Item *ni);
 void BestSeller(Table *tab, char *fileName);
+void DeleteTable(Table *tab);
 FILE* LoadFile(char *fileName);
 void LowStock(Table *tab, char *fileName);
 void PurgeTable(Table *tab, char *fileName);
 void SlowStock(Table *tab, char *fileName);
+int LibreOfficeLaunch(char *file);
 void WriteFile(Table *tab, char *fileName);
 
 //---For UI---
