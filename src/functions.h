@@ -22,11 +22,11 @@
 //--For Hash Table---
 #define BAR 14
 #define BUFFER 256
-#define PASS "panda"
+#define PASS "123"
 #define READ 9
 #define SEP ","
 #define STR 128
-#define ADMIN "slayer"
+#define ADMIN "test"
 
 //---For UI---
 #define ENTER 10
@@ -79,13 +79,13 @@ void BestSeller(Table *tab, char *fileName);
 void DeleteTable(Table *tab);
 FILE* LoadFile(char *fileName);
 void LowStock(Table *tab, char *fileName);
-void PurgeTable(Table *tab, char *fileName);
+Table* PurgeTable(Table *tab, char *fileName);
 void SlowStock(Table *tab, char *fileName);
 int LibreOfficeLaunch(char *file);
 void WriteFile(Table *tab, char *fileName);
 
 //---For UI---
-Item* AddItem(void);
+Item* AddItem(Table tab);
 int AdminVerify(void);
 int FileMenu(Table *tab);
 int ItemMenu(Table *tab);

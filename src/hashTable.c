@@ -173,8 +173,12 @@ FILE* LoadFile(char *fileName)
   FILE *fp = fopen(fileName, "r");
   if (!fp)
   {
+    attron(COLOR_PAIR(3));
     mvprintw(3, 0, "File Opening Failed!");
-    mvprintw(6, 0, "Press Any Key To Return Back.");
+    attroff(COLOR_PAIR(3));
+    attron(COLOR_PAIR(4));
+    mvprintw(6, 0, "Press Enter Key To Return Back.");
+    attroff(COLOR_PAIR(4));
     getch();
     return NULL;
   }
@@ -187,9 +191,7 @@ FILE* LoadFile(char *fileName)
     attron(COLOR_PAIR(4));
     mvprintw(6, 0, "Would You Like To Continue [Y/n] : ");
     attroff(COLOR_PAIR(4));
-    echo();
     char ch = getch();
-    noecho();
     if (ch == 'N' || ch == 'n')
     {
       return NULL;
@@ -200,7 +202,7 @@ FILE* LoadFile(char *fileName)
       mvprintw(3, 0, "File Opening Sucessfull.");
       attroff(COLOR_PAIR(2));
       attron(COLOR_PAIR(4));
-      mvprintw(6, 0, "Press Any Key To Proceed To Create Hash Table");
+      mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table");
       attroff(COLOR_PAIR(4));
       getch();
       return fp;
@@ -210,7 +212,7 @@ FILE* LoadFile(char *fileName)
   mvprintw(3, 0, "File Opening Sucessfull.");
   attroff(COLOR_PAIR(2));
   attron(COLOR_PAIR(4));
-  mvprintw(6, 0, "Press Any Key To Proceed To Create Hash Table.");
+  mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table.");
   attroff(COLOR_PAIR(4));
   getch();
   return fp;
@@ -260,13 +262,13 @@ void LowStock(Table *tab, char *fileName)
   return;
 }
 
-void PurgeTable(Table *tab, char *fileName)
+Table* PurgeTable(Table *tab, char *fileName)
 {
   int i;
   FILE *fp = fopen(fileName, "w");
   if (!fp)
   {
-    return;
+    return NULL;
   }
   fprintf(fp, "Index,Barcode,Name,Price,Stock,Transactions,Capacity,Percent,Status\n");
   for (i = 0; i < tab->cap; i++)
@@ -279,7 +281,15 @@ void PurgeTable(Table *tab, char *fileName)
     }
   }
   fclose(fp);
-  return;
+  DeleteTable(tab);
+  fp = fopen(fileName, "r");
+  if (!fp)
+  {
+    return NULL;
+  }
+  tab = FillHashTable(fp);
+  fclose(fp);
+  return tab;
 }
 
 void SlowStock(Table *tab, char *fileName)
@@ -346,7 +356,7 @@ int LibreOfficeLaunch(char *file)
 {
   char command[PATH];
   snprintf(command, PATH - 1, "xdg-open \"%s\" 2>/dev/null", file);
-  FILE *p = popen(command);
+  FILE *p = popen(command, "r");
   if (p)
     return 1;
   else 

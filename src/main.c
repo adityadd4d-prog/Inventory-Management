@@ -121,7 +121,7 @@ int main(void)
           UpdateItem(tab);
           goto ItemBack;
         case 3:
-          Item *ni = AddItem();
+          Item *ni = AddItem(*tab);
           Add(&tab, ni);
           tab->size++;
           tab->act++;
@@ -173,19 +173,20 @@ int main(void)
               attron(COLOR_PAIR(2));
               mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
               attroff(COLOR_PAIR(2));
+              getch();
             }
             else 
             {
-              attron(COLOR_PAIR(3);
+              attron(COLOR_PAIR(3));
               mvprintw(0, 0, "LibreOffice Calc Launch Failed.");
-              attroff(COLOR_PAIR(3);
+              attroff(COLOR_PAIR(3));
+              getch();
             }
-
             attron(COLOR_PAIR(4));
             mvprintw(3, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
+            getch();
           }
-          getch();
           goto ReportBack;
         case 2:
           snprintf(buff, PATH - 1, "%s%s", rpath,"Bestsellers.csv");
@@ -206,19 +207,20 @@ int main(void)
               attron(COLOR_PAIR(2));
               mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
               attroff(COLOR_PAIR(2));
+              getch();
             }
             else 
             {
-              attron(COLOR_PAIR(3);
+              attron(COLOR_PAIR(3));
               mvprintw(0, 0, "LibreOffice Calc Launch Failed.");
-              attroff(COLOR_PAIR(3);
+              attroff(COLOR_PAIR(3));
+              getch();
             }
-
             attron(COLOR_PAIR(4));
             mvprintw(3, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
+            getch();
           }
-          getch();
           goto ReportBack;
         case 3:
           snprintf(buff, PATH - 1, "%s%s", rpath,"Slow_Stock.csv");
@@ -239,19 +241,20 @@ int main(void)
               attron(COLOR_PAIR(2));
               mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
               attroff(COLOR_PAIR(2));
+              getch();
             }
             else 
             {
-              attron(COLOR_PAIR(3);
+              attron(COLOR_PAIR(3));
               mvprintw(0, 0, "LibreOffice Calc Launch Failed.");
-              attroff(COLOR_PAIR(3);
+              attroff(COLOR_PAIR(3));
+              getch();
             }
-
             attron(COLOR_PAIR(4));
             mvprintw(3, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
+            getch();
           }
-          getch();
           goto ReportBack;
         case 4:
           goto MainBack;
@@ -282,6 +285,7 @@ int main(void)
               else 
                 goto FileBack;
             }
+            clear();
             attron(COLOR_PAIR(2));
             mvprintw(0, 0,"---Load File---");
             attroff(COLOR_PAIR(2));
@@ -371,14 +375,37 @@ int main(void)
             mvprintw(0, 0,"---Purging Discontinued Items---");
             attroff(COLOR_PAIR(2));
             clrtobot();
-            PurgeTable(tab, fpath);
+            if (!tab->dis)
+            {
+              attron(COLOR_PAIR(3));
+              mvprintw(2, 0,"No Discontinued Items To Purge.");
+              attroff(COLOR_PAIR(3));
+              attron(COLOR_PAIR(4));
+              mvprintw(5, 0,"Press Enter Key to Return Back.");
+              attroff(COLOR_PAIR(4));
+              getch();
+              goto FileBack;
+            }
+            tab = PurgeTable(tab, fpath);
+            if (!tab)
+            {
+              attron(COLOR_PAIR(3));
+              mvprintw(2, 0,"Auto Reload of File Failed! Manual Reload Suggested.");
+              attroff(COLOR_PAIR(3));
+              attron(COLOR_PAIR(4));
+              mvprintw(5, 0,"Press Enter Key to Return Back.");
+              attroff(COLOR_PAIR(4));
+              getch();
+              goto FileBack;
+            }
+            attron(COLOR_PAIR(2));
             mvprintw(2, 0,"Purging Completed");
             mvprintw(3, 0,"Items Purged : %d", tab->dis);
             attroff(COLOR_PAIR(2));
             tab->size = tab->act;
             tab->dis = 0;
             attron(COLOR_PAIR(4));
-            mvprintw(7, 0,"Press Enter Key to Return Back.");
+            mvprintw(6, 0,"Press Enter Key to Return Back.");
             attroff(COLOR_PAIR(4));
             getch();
             goto FileBack;
@@ -392,7 +419,7 @@ int main(void)
       }
     case 4:
       mvprintw(0, 0,"Inventory Management System V1.0");
-      mvprintw(1, 0"Devloped By : Aditya Patel" )
+      mvprintw(1, 0,"Devloped By : Aditya Patel" );
       mvprintw(2, 0,"For The Code Visit Github :-");
       attron(COLOR_PAIR(2));
       mvprintw(3, 0,"https://github.com/adityadd4d-prog/Inventory-Management");

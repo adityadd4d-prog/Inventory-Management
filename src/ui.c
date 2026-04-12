@@ -1,6 +1,6 @@
 #include "functions.h"
 
-Item* AddItem(void)
+Item* AddItem(Table tab)
 {
   Item *ni = (Item*)malloc(sizeof(Item));
   char buff[BUFFER];
@@ -36,6 +36,21 @@ Item* AddItem(void)
       mvprintw(5, 0,"Press Enter Key to Enter Again.");
       attroff(COLOR_PAIR(4));
       getch();
+    }
+    if (valid)
+    {
+      Item *ch = Search(buff, &tab);
+      if (ch)
+      {
+        attron(COLOR_PAIR(3));
+        mvprintw(2, 0, "Barcode Already in Use.");
+        attroff(COLOR_PAIR(3));
+        attron(COLOR_PAIR(4));
+        mvprintw(5, 0,"Press Enter Key to Enter Again.");
+        attroff(COLOR_PAIR(4));
+        getch();
+        valid = 0;
+      }
     }
   } while (!valid);
   strcpy(ni->bar, buff);
@@ -92,6 +107,7 @@ Item* AddItem(void)
 
 int AdminVerify(void)
 {
+  clear();
   char user[STR], pass[STR];
   attron(COLOR_PAIR(2));
   mvprintw(0, 0, "---Admin Verify---");
@@ -238,7 +254,7 @@ void DisplayItem(Item *it)
   printw("Stock Percent    : %.2f%%\n",it->per);
   printw("Status           : %s\n",it->status ? "Active" : "Discontinued");
   attron(COLOR_PAIR(4));
-  mvprintw(12, 0,"Press Enter Key to Return Back.");
+  mvprintw(11, 0,"Press Enter Key to Return Back.");
   attroff(COLOR_PAIR(4));
   getch();
 }
@@ -287,10 +303,10 @@ void UpdateItem(Table *tab)
         curs_set(1);
         mvprintw(1, 0,"New Price     : ");
         clrtoeol();
-        curs_set(0);
         getnstr(buff, BUFFER - 1);
+        curs_set(0);
         if (strlen(buff) == 0)
-        continue;
+          continue;
       } while (atof(buff) <= 0);
       it->price = atof(buff);
       mvprintw(2, 0,"Updated Price : %.2f Rupees",it->price);
@@ -310,10 +326,10 @@ void UpdateItem(Table *tab)
         curs_set(1);
         mvprintw(1, 0,"Stock Transaction : ");
         clrtoeol();
-        curs_set(0);
         getnstr(buff, BUFFER - 1);
+        curs_set(0);
         if (strlen(buff) == 0)
-        continue;
+          continue;
         trans = atoi(buff);
       } while (trans == 0 || trans < -it->stock);
       it->trans += trans;
@@ -349,15 +365,21 @@ void UpdateItem(Table *tab)
       char ch = getch();
       if ((ch == 'D' || ch == 'd') && it->status == 1)
       {
-        it->status = 0;
-        tab->dis++;
-        tab->act--;
+        if (AdminVerify())
+        {
+          clear();
+          mvprintw(0, 0,"Current Status   : %s",it->status ? "Active" : "Discontinued");
+          mvprintw(1, 0,"New Status [A/D] : %c",ch);
+          it->status = 0;
+          tab->dis++;
+          tab->act--;
+        }
       }
       if ((ch == 'A' || ch == 'a') && it->status == 0)
       {
-          it->status = 1;
-          tab->dis--;
-          tab->act++;
+        it->status = 1;
+        tab->dis--;
+        tab->act++;
       }
       mvprintw(2, 0,"Updated Status   : %s",it->status ? "Active" : "Discontinued");
       attron(COLOR_PAIR(2));
