@@ -64,29 +64,53 @@ Item* AddItem(Table tab)
   do 
   {
     mvprintw(3, 0, "Price               : ");
-    clrtoeol();
+    clrtobot();
     getnstr(buff, BUFFER - 1);
     ni->price = atof(buff);
+    if (ni->price < 0)
+    {
+      attron(COLOR_PAIR(3));
+      mvprintw(5, 0, "Entered Price Can't be Negative!");
+      attroff(COLOR_PAIR(3));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
+      mvprintw(8, 0,"Press Enter Key to Enter Again.");
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
+      getch();
+      clrtobot();
+    }
   } while (ni->price <= 0);
   do 
   {
     mvprintw(4, 0, "Stock               : ");
-    clrtoeol();
+    clrtobot();
     getnstr(buff, BUFFER - 1);
+    if (strlen(buff) == 0)\
+        continue;
     ni->stock = atoi(buff);
+    if (ni->stock < 0)
+    {
+      attron(COLOR_PAIR(3));
+      mvprintw(6, 0, "Entered Stock Can't be Negative!");
+      attroff(COLOR_PAIR(3));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
+      mvprintw(9, 0,"Press Enter Key to Enter Again.");
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
+      getch();
+      clrtobot();
+    }
   } while (ni->stock < 0);
   do 
   {
     valid = 1;
     mvprintw(5, 0, "Stock Capacity      : ");
-    clrtoeol();
+    clrtobot();
     getnstr(buff, BUFFER - 1);
     ni->cap = atoi(buff);
     if (ni->cap <= 0 || ni->cap <= ni->stock)
     { 
       valid = 0;
       attron(COLOR_PAIR(3));
-      mvprintw(7, 0, "Enter Stock Capacity is less than the current Stock!");
+      mvprintw(7, 0, "Entered Stock Capacity is less than the current Stock!");
       attroff(COLOR_PAIR(3));
       attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(10, 0,"Press Enter Key to Enter Again.");
@@ -256,19 +280,19 @@ void DisplayItem(Item *it)
   printw("Stock Capacity   : %d\n",it->cap);
   printw("Stock Percent    : %.2f%%\n",it->per);
   printw("Status           : %s\n",it->status ? "Active" : "Discontinued");
-  attron(COLOR_PAIR(4));
+  attron(COLOR_PAIR(4) | A_UNDERLINE);
   mvprintw(11, 0,"Press Enter Key to Return Back.");
-  attroff(COLOR_PAIR(4));
+  attroff(COLOR_PAIR(4) | A_UNDERLINE);
   getch();
 }
 
 int UpdateMenu(void)
 {
-  char *opt[] = {"Price", "Quantity", "Status", "Back"};
+  char *opt[] = {"Price", "Quantity", "Status", "Stock Capacity", "Back"};
   attron(COLOR_PAIR(2) | A_BOLD);
   printw("---Updation Menu---");
   attroff(COLOR_PAIR(2) | A_BOLD);
-  int ch = MyMenu(opt, 4, 1, 0);
+  int ch = MyMenu(opt, 5, 1, 0);
   return ch;
 }
 
@@ -297,6 +321,7 @@ void UpdateItem(Table *tab)
       return;
   Back:
   clear();
+  echo();
   switch (UpdateMenu())
   {
     case 1:
@@ -328,30 +353,37 @@ void UpdateItem(Table *tab)
       {
         curs_set(1);
         mvprintw(1, 0,"Stock Transaction : ");
-        clrtoeol();
+        clrtobot();
         getnstr(buff, BUFFER - 1);
         curs_set(0);
         if (strlen(buff) == 0)
           continue;
         trans = atoi(buff);
-      } while (trans == 0 || trans < -it->stock);
+        if (trans < -it->stock)
+        {
+          attron(COLOR_PAIR(3));
+          mvprintw(3, 0, "Entered Stock Transaction Can't be More Than the Available Stock.");
+          attroff(COLOR_PAIR(3));
+          attron(COLOR_PAIR(4) | A_UNDERLINE);
+          mvprintw(6, 0,"Press Enter Key to Enter Again.");
+          attroff(COLOR_PAIR(4) | A_UNDERLINE);
+          getch();
+          clrtobot();
+        }
+        if ((trans + it->stock) > it->cap)
+        {
+          attron(COLOR_PAIR(3));
+          mvprintw(3, 0, "Entered Stock Intake Can't be More The Stock Capacity.");
+          attroff(COLOR_PAIR(3));
+          attron(COLOR_PAIR(4) | A_UNDERLINE);
+          mvprintw(6, 0,"Press Enter Key to Enter Again.");
+          attroff(COLOR_PAIR(4) | A_UNDERLINE);
+          getch();
+          clrtobot();
+        }
+      } while (trans == 0 || trans < -it->stock || (trans + it->stock) > it->cap);
       it->trans += trans;
       it->stock += trans;
-      if (it->stock > it->cap)
-      {
-        it->cap = it->stock + it->stock * 0.25;
-        attron(COLOR_PAIR(2));
-        mvprintw(2, 0, "Increasing Stock Capacity Due To High Stock Intake.");
-        it->per = ((float)it->stock/it->cap) * 100;
-        mvprintw(3, 0,"Updated Stock     : %d",it->stock);
-        mvprintw(5, 0,"Stock Updated.");
-        attroff(COLOR_PAIR(2));
-        attron(COLOR_PAIR(4) | A_UNDERLINE);
-        mvprintw(8, 0,"Press Enter Key to Return Back.");
-        attroff(COLOR_PAIR(4) | A_UNDERLINE);
-        getch();
-        goto Back;
-      }
       it->per = ((float)it->stock/it->cap) * 100;
       mvprintw(2, 0,"Updated Stock     : %d",it->stock);
       attron(COLOR_PAIR(2));
@@ -388,12 +420,48 @@ void UpdateItem(Table *tab)
       attron(COLOR_PAIR(2));
       mvprintw(4, 0,"Status Updated.");
       attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(4));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(7, 0,"Press Enter Key to Return Back.");
-      attroff(COLOR_PAIR(4));
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
       getch();
       goto Back;
     case 4:
+      mvprintw(0, 0,"Current Stock Capacity : %d",it->cap);
+      do 
+      {
+        curs_set(1);
+        mvprintw(1, 0,"Change                 : ");
+        clrtobot();
+        getnstr(buff, BUFFER - 1);
+        curs_set(0);
+        if (strlen(buff) == 0)
+          continue;
+        trans = atoi(buff);
+        if ((trans + it->cap) < it->stock)
+        {
+          attron(COLOR_PAIR(3));
+          mvprintw(3, 0, "Entered Value Can't be Accepted as it results in Stock Capacity Being Less than Current Stock.");
+          attroff(COLOR_PAIR(3));
+          attron(COLOR_PAIR(4) | A_UNDERLINE);
+          mvprintw(6, 0,"Press Enter Key to Enter Again.");
+          attroff(COLOR_PAIR(4) | A_UNDERLINE);
+          getch();
+          clrtobot();
+
+        }
+      } while (trans == 0 || (trans + it->cap) < it->stock);
+      it->cap += trans;
+      it->per = ((float)it->stock/it->cap) * 100;
+      mvprintw(2, 0,"Updated Stock Capacity : %d",it->cap);
+      attron(COLOR_PAIR(2));
+      mvprintw(4, 0,"Stock Capacity Updated.");
+      attroff(COLOR_PAIR(2));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
+      mvprintw(7, 0,"Press Enter Key to Return Back.");
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
+      getch();
+      goto Back;
+    case 5:
       noecho();
       curs_set(0);
       return;

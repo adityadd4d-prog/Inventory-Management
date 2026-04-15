@@ -62,6 +62,7 @@ int main(void)
                 DisplayItem(it);
               else 
               {
+                clear();
                 attron(COLOR_PAIR(3));
                 mvprintw(0, 0, "Item Not Found!");
                 attroff(COLOR_PAIR(3));
@@ -76,9 +77,9 @@ int main(void)
               attron(COLOR_PAIR(2));
               mvprintw(0, 0, "OCR Implemented using Tesseract.");
               attroff(COLOR_PAIR(2));
-              attron(COLOR_PAIR(2) | A_UNDERLINE);
+              attron(COLOR_PAIR(2));
               mvprintw(2, 0, "Enter Path To Image : ");
-              attroff(COLOR_PAIR(2) | A_UNDERLINE);
+              attroff(COLOR_PAIR(2));
               echo();
               curs_set(1);
               getnstr(path,PATH-1);
@@ -274,6 +275,7 @@ int main(void)
               attron(COLOR_PAIR(3) | A_BLINK);
               mvprintw(0, 0, "Hash Table Already in Memory.");
               attroff(COLOR_PAIR(3) | A_BLINK);
+              clrtobot();
               attron(COLOR_PAIR(4));
               mvprintw(3, 0,"Do you want to Delete Current Table and load a New One [y/N] : ");
               attroff(COLOR_PAIR(4));
@@ -447,8 +449,11 @@ int main(void)
         attron(COLOR_PAIR(3) | A_BLINK);
         mvprintw(1, 0, "Hash Table in Memory.");
         attroff(COLOR_PAIR(3) | A_BLINK);
+        attron(COLOR_PAIR(2));
+        mvprintw(3, 0, "Ignore This Warning if already Saved.");
+        attroff(COLOR_PAIR(2));
         attron(COLOR_PAIR(4));
-        mvprintw(3, 0,"Would you Like to Save it in Persistance Storage [y/N] : ");
+        mvprintw(5, 0,"Would you Like to Save it in Persistance Storage [y/N] : ");
         attroff(COLOR_PAIR(4));
         char ch = getch();
         if (ch == 'Y' || ch == 'y')
