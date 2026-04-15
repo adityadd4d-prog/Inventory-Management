@@ -1,6 +1,6 @@
 # Inventory Management System
 
-A terminal-based Inventory Management System built in C using ncurses for the UI. Developed as a Student Semester Project (SSP) for the Data Structures course.
+A terminal-based Inventory Management System built in C using ncurses for the UI and Hastable for Data Access. Developed as a Subject Specific Project (SSP) for the Data Structures course.
 
 ## Features
 
