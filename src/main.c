@@ -18,10 +18,10 @@ int main(void)
   bkgd(COLOR_PAIR(1));
   curs_set(0);
   refresh();
-  MainBack:
-  clear();
   char fpath[PATH] = "/home/slayer/Projects/Inventory-Management/data/inventory.csv"; // Default Path for files
   const char rpath[] = "/home/slayer/Projects/Inventory-Management/Reports/"; // default Path for Reports
+  MainBack:
+  clear();
   switch (MainMenu())
   {
     case 1:
@@ -97,6 +97,7 @@ int main(void)
                 goto SearchBack;
               } 
               strcpy(bar,res);
+              free(res);
               it = Search(bar, tab);
               if (it)
                 DisplayItem(it);
@@ -125,7 +126,6 @@ int main(void)
           Item *ni = AddItem(*tab);
           Add(&tab, ni);
           tab->size++;
-          tab->act++;
           attron(COLOR_PAIR(2));
           mvprintw(7, 0, "Item Added");
           attroff(COLOR_PAIR(2));
@@ -387,6 +387,7 @@ int main(void)
               getch();
               goto FileBack;
             }
+            int pur = tab->dis;
             tab = PurgeTable(tab, fpath);
             if (!tab)
             {
@@ -401,7 +402,7 @@ int main(void)
             }
             attron(COLOR_PAIR(2));
             mvprintw(2, 0,"Purging Completed");
-            mvprintw(3, 0,"Items Purged : %d", tab->dis);
+            mvprintw(3, 0,"Items Purged : %d", pur);
             attroff(COLOR_PAIR(2));
             tab->size = tab->act;
             tab->dis = 0;

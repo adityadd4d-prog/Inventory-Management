@@ -218,6 +218,7 @@ int MyMenu(char **opt, int optNum, int y, int x)
   for (i = 0; i < optNum; i++)
     free_item(all[i]);
   free_menu(menu);
+  free(all);
   return ch;
 }
 
@@ -341,7 +342,7 @@ void UpdateItem(Table *tab)
         it->cap = it->stock + it->stock * 0.25;
         attron(COLOR_PAIR(2));
         mvprintw(2, 0, "Increasing Stock Capacity Due To High Stock Intake.");
-        it->per = (it->stock/it->cap) * 100;
+        it->per = ((float)it->stock/it->cap) * 100;
         mvprintw(3, 0,"Updated Stock     : %d",it->stock);
         mvprintw(5, 0,"Stock Updated.");
         attroff(COLOR_PAIR(2));

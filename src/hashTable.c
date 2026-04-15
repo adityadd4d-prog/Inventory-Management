@@ -9,6 +9,7 @@ char* OCR(char *image)
   if (!pipe)
   {
     return NULL;
+    free(bar);
   }
   fgets(bar, BAR, pipe);
   pclose(pipe);
@@ -230,7 +231,7 @@ void BestSeller(Table *tab, char *fileName)
   {
     Item *temp = tab->buckets[i];
     while (temp)
-    { if (temp->trans < 0 && temp->per < 34) 
+    { if (temp->trans < 0 && temp->per < 50) 
         fprintf(fp,"%d,%s,%s,%.2f,%d,%d,%d,%.2f,%d\n",i+1,temp->bar,temp->name,temp->price,temp->stock,temp->trans,temp->cap,temp->per,temp->status);
       temp = temp->next;
     }
