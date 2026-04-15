@@ -204,7 +204,7 @@ FILE* LoadFile(char *fileName)
     else 
     {
       attron(COLOR_PAIR(2));
-      mvprintw(3, 0, "File Opening Sucessfull.");
+      mvprintw(3, 0, "File Opening Successfull.");
       attroff(COLOR_PAIR(2));
       attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table");
@@ -214,7 +214,7 @@ FILE* LoadFile(char *fileName)
     }
   }
   attron(COLOR_PAIR(2));
-  mvprintw(3, 0, "File Opening Sucessfull.");
+  mvprintw(3, 0, "File Opening Successfull.");
   attroff(COLOR_PAIR(2));
   attron(COLOR_PAIR(4) | A_UNDERLINE);
   mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table.");

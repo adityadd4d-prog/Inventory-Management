@@ -173,7 +173,7 @@ int main(void)
             if (LibreOfficeLaunch(buff))
             { 
               attron(COLOR_PAIR(2));
-              mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
+              mvprintw(0, 0, "LibreOffice Calc Launched Successfully");
               attroff(COLOR_PAIR(2));
               getch();
             }
@@ -207,7 +207,7 @@ int main(void)
             if (LibreOfficeLaunch(buff))
             { 
               attron(COLOR_PAIR(2) | A_UNDERLINE);
-              mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
+              mvprintw(0, 0, "LibreOffice Calc Launched Successfully");
               attroff(COLOR_PAIR(2) | A_UNDERLINE);
               getch();
             }
@@ -241,7 +241,7 @@ int main(void)
             if (LibreOfficeLaunch(buff))
             { 
               attron(COLOR_PAIR(2));
-              mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
+              mvprintw(0, 0, "LibreOffice Calc Launched Successfully");
               attroff(COLOR_PAIR(2));
               getch();
             }
@@ -425,7 +425,7 @@ int main(void)
       attron(COLOR_PAIR(5) | A_STANDOUT);
       mvprintw(0, 0,"Inventory Management System V1.0");
       attroff(COLOR_PAIR(5) | A_STANDOUT);
-      mvprintw(2, 0,"Devloped By : Aditya Patel" );
+      mvprintw(2, 0,"Developed By : Aditya Patel" );
       mvprintw(3, 0,"Github : ");
       attron(COLOR_PAIR(5));
       printw("https://github.com/adityadd4d-prog/Inventory-Management");
@@ -453,7 +453,7 @@ int main(void)
         mvprintw(3, 0, "Ignore This Warning if already Saved.");
         attroff(COLOR_PAIR(2));
         attron(COLOR_PAIR(4));
-        mvprintw(5, 0,"Would you Like to Save it in Persistance Storage [y/N] : ");
+        mvprintw(5, 0,"Would you Like to Save it in Persistence Storage [y/N] : ");
         attroff(COLOR_PAIR(4));
         char ch = getch();
         if (ch == 'Y' || ch == 'y')
