@@ -8,10 +8,15 @@ char* OCR(char *image)
   FILE *pipe = popen(command, "r");
   if (!pipe)
   {
-    return NULL;
     free(bar);
+    return NULL;
   }
-  fgets(bar, BAR, pipe);
+  if (!fgets(bar, BAR, pipe))
+  {
+    pclose(pipe);
+    free(bar);
+    return NULL;
+  }
   pclose(pipe);
   bar[strcspn(bar, "\n\r")] = '\0';
   return bar;
@@ -358,7 +363,10 @@ int LibreOfficeLaunch(char *file)
   snprintf(command, PATH - 1, "xdg-open \"%s\" 2>/dev/null", file);
   FILE *p = popen(command, "r");
   if (p)
+  { 
+    pclose(p);
     return 1;
+  }
   else 
     return 0;
 }

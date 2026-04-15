@@ -84,7 +84,7 @@ Item* AddItem(Table tab)
     mvprintw(4, 0, "Stock               : ");
     clrtobot();
     getnstr(buff, BUFFER - 1);
-    if (strlen(buff) == 0)\
+    if (strlen(buff) == 0)
         continue;
     ni->stock = atoi(buff);
     if (ni->stock < 0)
@@ -373,7 +373,7 @@ void UpdateItem(Table *tab)
         if ((trans + it->stock) > it->cap)
         {
           attron(COLOR_PAIR(3));
-          mvprintw(3, 0, "Entered Stock Intake Can't be More The Stock Capacity.");
+          mvprintw(3, 0, "Entered Stock Intake Can't be More Than The Stock Capacity.");
           attroff(COLOR_PAIR(3));
           attron(COLOR_PAIR(4) | A_UNDERLINE);
           mvprintw(6, 0,"Press Enter Key to Enter Again.");
