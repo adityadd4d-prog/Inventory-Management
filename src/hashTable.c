@@ -8,7 +8,6 @@ char* OCR(char *image)
   FILE *pipe = popen(command, "r");
   if (!pipe)
   {
-    puts("Scan Failed.");
     return NULL;
   }
   fgets(bar, BAR, pipe);
@@ -173,21 +172,21 @@ FILE* LoadFile(char *fileName)
   FILE *fp = fopen(fileName, "r");
   if (!fp)
   {
-    attron(COLOR_PAIR(3));
+    attron(COLOR_PAIR(3) | A_BLINK);
     mvprintw(3, 0, "File Opening Failed!");
-    attroff(COLOR_PAIR(3));
-    attron(COLOR_PAIR(4));
+    attroff(COLOR_PAIR(3) | A_BLINK);
+    attron(COLOR_PAIR(4) | A_UNDERLINE);
     mvprintw(6, 0, "Press Enter Key To Return Back.");
-    attroff(COLOR_PAIR(4));
+    attroff(COLOR_PAIR(4) | A_UNDERLINE);
     getch();
     return NULL;
   }
   int size = Count(fp);
   if (!size)
   {
-    attron(COLOR_PAIR(3));
+    attron(COLOR_PAIR(3) | A_BLINK);
     mvprintw(3, 0, "Empty File!");
-    attroff(COLOR_PAIR(3));
+    attroff(COLOR_PAIR(3) | A_BLINK);
     attron(COLOR_PAIR(4));
     mvprintw(6, 0, "Would You Like To Continue [Y/n] : ");
     attroff(COLOR_PAIR(4));
@@ -201,9 +200,9 @@ FILE* LoadFile(char *fileName)
       attron(COLOR_PAIR(2));
       mvprintw(3, 0, "File Opening Sucessfull.");
       attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(4));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table");
-      attroff(COLOR_PAIR(4));
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
       getch();
       return fp;
     }
@@ -211,9 +210,9 @@ FILE* LoadFile(char *fileName)
   attron(COLOR_PAIR(2));
   mvprintw(3, 0, "File Opening Sucessfull.");
   attroff(COLOR_PAIR(2));
-  attron(COLOR_PAIR(4));
+  attron(COLOR_PAIR(4) | A_UNDERLINE);
   mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table.");
-  attroff(COLOR_PAIR(4));
+  attroff(COLOR_PAIR(4) | A_UNDERLINE);
   getch();
   return fp;
 }

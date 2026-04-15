@@ -11,9 +11,9 @@ Item* AddItem(Table tab)
   {
     valid = 0;
     clear();
-    attron(COLOR_PAIR(2));
+    attron(COLOR_PAIR(2) | A_BOLD);
     mvprintw(0, 0, "---Add Item---");
-    attroff(COLOR_PAIR(2));
+    attroff(COLOR_PAIR(2) | A_BOLD);
     mvprintw(1, 0, "Barcode (13 digits) : ");
     clrtoeol();
     getnstr(buff, BAR - 1);
@@ -32,9 +32,9 @@ Item* AddItem(Table tab)
       attron(COLOR_PAIR(3));
       mvprintw(2, 0, "Enter exactly 13 numeric digits!");
       attroff(COLOR_PAIR(3));
-      attron(COLOR_PAIR(4));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(5, 0,"Press Enter Key to Enter Again.");
-      attroff(COLOR_PAIR(4));
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
       getch();
     }
     if (valid)
@@ -42,9 +42,9 @@ Item* AddItem(Table tab)
       Item *ch = Search(buff, &tab);
       if (ch)
       {
-        attron(COLOR_PAIR(3));
+        attron(COLOR_PAIR(3) | A_BLINK);
         mvprintw(2, 0, "Barcode Already in Use.");
-        attroff(COLOR_PAIR(3));
+        attroff(COLOR_PAIR(3) | A_BLINK);
         attron(COLOR_PAIR(4));
         mvprintw(5, 0,"Press Enter Key to Enter Again.");
         attroff(COLOR_PAIR(4));
@@ -88,9 +88,9 @@ Item* AddItem(Table tab)
       attron(COLOR_PAIR(3));
       mvprintw(7, 0, "Enter Stock Capacity is less than the current Stock!");
       attroff(COLOR_PAIR(3));
-      attron(COLOR_PAIR(4));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(10, 0,"Press Enter Key to Enter Again.");
-      attroff(COLOR_PAIR(4));
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
       getch();
       clrtobot();
     }
@@ -109,9 +109,9 @@ int AdminVerify(void)
 {
   clear();
   char user[STR], pass[STR];
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   mvprintw(0, 0, "---Admin Verify---");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   echo();
   curs_set(1);
   do 
@@ -132,12 +132,12 @@ int AdminVerify(void)
     return 1;
   else
   {
-    attron(COLOR_PAIR(3));
+    attron(COLOR_PAIR(3) | A_BLINK);
     mvprintw(4, 0,"Invalid Credentials!");
-    attroff(COLOR_PAIR(3));
-    attron(COLOR_PAIR(4));
+    attroff(COLOR_PAIR(3) | A_BLINK);
+    attron(COLOR_PAIR(4) | A_UNDERLINE);
     mvprintw(7, 0,"Press Enter Key to Return Back.");
-    attroff(COLOR_PAIR(4));
+    attroff(COLOR_PAIR(4) | A_UNDERLINE);
     refresh();
     getch();
     return 0;
@@ -147,9 +147,9 @@ int AdminVerify(void)
 int FileMenu(Table *tab)
 {
   char *opt[] = {"Load File", "Save File", "Purge Discontinued Items", "Back"};
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   mvprintw(0, 0, "---File Menu---");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   attron(COLOR_PAIR(4));
   mvprintw(1, 0,"Total Items : %d | Active Items : %d | Discontinued Items : %d", tab ? tab->size : 0, tab ? tab->act : 0, tab ? tab->dis : 0);
   attroff(COLOR_PAIR(4));
@@ -160,9 +160,9 @@ int FileMenu(Table *tab)
 int ItemMenu(Table *tab)
 {
   char *opt[] = {"Search", "Update", "Add Item", "Back"};
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   mvprintw(0, 0, "---Item Menu---");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   attron(COLOR_PAIR(4));
   mvprintw(1, 0,"Total Items : %d | Active Items : %d | Discontinued Items : %d",tab->size, tab->act, tab->dis);
   attroff(COLOR_PAIR(4));
@@ -173,9 +173,9 @@ int ItemMenu(Table *tab)
 int MainMenu(void)
 {
   char *opt[] = {"Items", "Report", "File", "About", "Exit"};
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   printw("---Main Menu---");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   int ch = MyMenu(opt, 5, 1, 0);
   return ch;
 }
@@ -192,6 +192,8 @@ int MyMenu(char **opt, int optNum, int y, int x)
   menu = new_menu(all);
   set_menu_win(menu, stdscr);
   set_menu_sub(menu, derwin(stdscr, optNum, 30, y, x));
+  set_menu_fore(menu, COLOR_PAIR(5) | A_BOLD | A_REVERSE);
+  set_menu_back(menu, COLOR_PAIR(1));
   post_menu(menu);
   refresh();
   while ((key = getch()) != F1) 
@@ -222,9 +224,9 @@ int MyMenu(char **opt, int optNum, int y, int x)
 int ReportMenu(void)
 {
   char *opt[] = {"Low Stock Items", "Bestsellers", "Slow Stock", "Back"};
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   printw("---Report Menu---");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   int ch = MyMenu(opt, 4, 1, 0);
   return ch;
 }
@@ -232,9 +234,9 @@ int ReportMenu(void)
 int SearchMenu(void)
 {
   char *opt[] = {"Barcode", "OCR", "Back"};
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   printw("---Search Menu---");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   int ch = MyMenu(opt, 3, 1, 0);
   return ch;
 }
@@ -242,9 +244,9 @@ int SearchMenu(void)
 void DisplayItem(Item *it)
 {
   clear();
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   printw("---ITEM---\n");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   printw("Barcode          : %s\n",it->bar);
   printw("Name             : %s\n",it->name);
   printw("Rate             : %.2f Rupees\n",it->price);
@@ -262,9 +264,9 @@ void DisplayItem(Item *it)
 int UpdateMenu(void)
 {
   char *opt[] = {"Price", "Quantity", "Status", "Back"};
-  attron(COLOR_PAIR(2));
+  attron(COLOR_PAIR(2) | A_BOLD);
   printw("---Updation Menu---");
-  attroff(COLOR_PAIR(2));
+  attroff(COLOR_PAIR(2) | A_BOLD);
   int ch = MyMenu(opt, 4, 1, 0);
   return ch;
 }
@@ -283,9 +285,9 @@ void UpdateItem(Table *tab)
     attron(COLOR_PAIR(3));
     mvprintw(3, 0,"Barcode Not Found!");
     attroff(COLOR_PAIR(3));
-    attron(COLOR_PAIR(4));
+    attron(COLOR_PAIR(4) | A_UNDERLINE);
     mvprintw(6, 0,"Press Enter Key to Return Back.");
-    attroff(COLOR_PAIR(4));
+    attroff(COLOR_PAIR(4) | A_UNDERLINE);
     getch();
     return;
   }
@@ -313,9 +315,9 @@ void UpdateItem(Table *tab)
       attron(COLOR_PAIR(2));
       mvprintw(4, 0,"Price Updated.");
       attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(4));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(7, 0,"Press Enter Key to Return Back.");
-      attroff(COLOR_PAIR(4));
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
       getch();
       goto Back;
     case 2:
@@ -343,9 +345,9 @@ void UpdateItem(Table *tab)
         mvprintw(3, 0,"Updated Stock     : %d",it->stock);
         mvprintw(5, 0,"Stock Updated.");
         attroff(COLOR_PAIR(2));
-        attron(COLOR_PAIR(4));
+        attron(COLOR_PAIR(4) | A_UNDERLINE);
         mvprintw(8, 0,"Press Enter Key to Return Back.");
-        attroff(COLOR_PAIR(4));
+        attroff(COLOR_PAIR(4) | A_UNDERLINE);
         getch();
         goto Back;
       }
@@ -354,9 +356,9 @@ void UpdateItem(Table *tab)
       attron(COLOR_PAIR(2));
       mvprintw(4, 0,"Stock Updated.");
       attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(4));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
       mvprintw(7, 0,"Press Enter Key to Return Back.");
-      attroff(COLOR_PAIR(4));
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
       getch();
       goto Back;
     case 3:

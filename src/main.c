@@ -14,6 +14,7 @@ int main(void)
   init_pair(2, COLOR_GREEN, COLOR_BLACK);
   init_pair(3, COLOR_RED, COLOR_BLACK);
   init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(5, COLOR_BLUE, COLOR_BLACK);
   bkgd(COLOR_PAIR(1));
   curs_set(0);
   refresh();
@@ -26,12 +27,12 @@ int main(void)
     case 1:
       if (!tab)
       {
-        attron(COLOR_PAIR(3));
+        attron(COLOR_PAIR(3) | A_BLINK);
         mvprintw(0, 0, "Hash Table Not Created.");
-        attroff(COLOR_PAIR(3));
-        attron(COLOR_PAIR(4));
+        attroff(COLOR_PAIR(3) | A_BLINK);
+        attron(COLOR_PAIR(4) | A_UNDERLINE);
         mvprintw(3, 0,"Press Enter Key to Return Back.");
-        attroff(COLOR_PAIR(4));
+        attroff(COLOR_PAIR(4) | A_UNDERLINE);
         getch();
         goto MainBack;
       }
@@ -64,9 +65,9 @@ int main(void)
                 attron(COLOR_PAIR(3));
                 mvprintw(0, 0, "Item Not Found!");
                 attroff(COLOR_PAIR(3));
-                attron(COLOR_PAIR(4));
+                attron(COLOR_PAIR(4) | A_UNDERLINE);
                 mvprintw(3, 0,"Press Enter Key to Return Back.");
-                attroff(COLOR_PAIR(4));
+                attroff(COLOR_PAIR(4) | A_UNDERLINE);
                 getch();
               }
               goto SearchBack;
@@ -75,9 +76,9 @@ int main(void)
               attron(COLOR_PAIR(2));
               mvprintw(0, 0, "OCR Implemented using Tesseract.");
               attroff(COLOR_PAIR(2));
-              attron(COLOR_PAIR(2));
+              attron(COLOR_PAIR(2) | A_UNDERLINE);
               mvprintw(2, 0, "Enter Path To Image : ");
-              attroff(COLOR_PAIR(2));
+              attroff(COLOR_PAIR(2) | A_UNDERLINE);
               echo();
               curs_set(1);
               getnstr(path,PATH-1);
@@ -89,9 +90,9 @@ int main(void)
                 attron(COLOR_PAIR(3));
                 mvprintw(5, 0, "OCR Recognition Failed!");
                 attroff(COLOR_PAIR(3));
-                attron(COLOR_PAIR(4));
+                attron(COLOR_PAIR(4) | A_UNDERLINE);
                 mvprintw(8, 0,"Press Enter Key to Return Back.");
-                attroff(COLOR_PAIR(4));
+                attroff(COLOR_PAIR(4) | A_UNDERLINE);
                 getch();
                 goto SearchBack;
               } 
@@ -101,12 +102,12 @@ int main(void)
                 DisplayItem(it);
               else 
               {
-                attron(COLOR_PAIR(3));
+                attron(COLOR_PAIR(3) | A_BLINK);
                 mvprintw(5, 0, "Item Not Found!");
-                attroff(COLOR_PAIR(3));
-                attron(COLOR_PAIR(4));
+                attroff(COLOR_PAIR(3) | A_BLINK);
+                attron(COLOR_PAIR(4) | A_UNDERLINE);
                 mvprintw(8, 0,"Press Enter Key to Return Back.");
-                attroff(COLOR_PAIR(4));
+                attroff(COLOR_PAIR(4) | A_UNDERLINE);
                 getch();
               }
               goto SearchBack;
@@ -114,9 +115,9 @@ int main(void)
               goto ItemBack;
           }
         case 2:
-          attron(COLOR_PAIR(2));
+          attron(COLOR_PAIR(2) | A_BOLD);
           mvprintw(0, 0, "---Item Updation---");
-          attroff(COLOR_PAIR(2));
+          attroff(COLOR_PAIR(2) | A_BOLD);
           clrtobot();
           UpdateItem(tab);
           goto ItemBack;
@@ -125,12 +126,12 @@ int main(void)
           Add(&tab, ni);
           tab->size++;
           tab->act++;
-          attron(COLOR_PAIR(3));
+          attron(COLOR_PAIR(2));
           mvprintw(7, 0, "Item Added");
-          attroff(COLOR_PAIR(3));
-          attron(COLOR_PAIR(4));
+          attroff(COLOR_PAIR(2));
+          attron(COLOR_PAIR(4) | A_UNDERLINE);
           mvprintw(10, 0,"Press Enter Key to Return Back.");
-          attroff(COLOR_PAIR(4));
+          attroff(COLOR_PAIR(4) | A_UNDERLINE);
           getch();
           goto ItemBack;
         case 4:
@@ -139,12 +140,12 @@ int main(void)
     case 2:
       if (!tab)
       {
-        attron(COLOR_PAIR(3));
+        attron(COLOR_PAIR(3) | A_BLINK);
         mvprintw(0, 0, "Hash Table Not Created.");
-        attroff(COLOR_PAIR(3));
-        attron(COLOR_PAIR(4));
+        attroff(COLOR_PAIR(3) | A_BLINK);
+        attron(COLOR_PAIR(4) | A_UNDERLINE);
         mvprintw(3, 0,"Press Enter Key to Return Back.");
-        attroff(COLOR_PAIR(4));
+        attroff(COLOR_PAIR(4) | A_UNDERLINE);
         getch();
         goto MainBack;
       }
@@ -156,14 +157,14 @@ int main(void)
         char ch;
         case 1:
           snprintf(buff, PATH - 1, "%s%s", rpath,"Low_Stock.csv");
-          attron(COLOR_PAIR(2));
+          attron(COLOR_PAIR(2) | A_BOLD);
           mvprintw(0, 0, "---Low Stock Report---");
-          attroff(COLOR_PAIR(2));
+          attroff(COLOR_PAIR(2) | A_BOLD);
           mvprintw(2, 0, "Report Created At : %s",buff);
           LowStock(tab, buff);
-          attron(COLOR_PAIR(4));
+          attron(COLOR_PAIR(4) | A_UNDERLINE);
           mvprintw(5, 0,"Press Enter Key to Return Back or O to open the Report Using LibreOffice Calc.");
-          attroff(COLOR_PAIR(4));
+          attroff(COLOR_PAIR(4) | A_UNDERLINE);
           ch = getch();
           if (ch == 'o' || ch == 'O')
           {
@@ -190,23 +191,23 @@ int main(void)
           goto ReportBack;
         case 2:
           snprintf(buff, PATH - 1, "%s%s", rpath,"Bestsellers.csv");
-          attron(COLOR_PAIR(2));
+          attron(COLOR_PAIR(2) | A_BOLD);
           mvprintw(0, 0, "---Bestseller Report---");
-          attroff(COLOR_PAIR(2));
+          attroff(COLOR_PAIR(2) | A_BOLD);
           mvprintw(2, 0, "Report Created At : %s",buff);
           BestSeller(tab, buff);
-          attron(COLOR_PAIR(4));
+          attron(COLOR_PAIR(4) | A_UNDERLINE);
           mvprintw(5, 0,"Press Enter Key to Return Back or O to open the Report Using LibreOffice Calc.");
-          attroff(COLOR_PAIR(4));
+          attroff(COLOR_PAIR(4) | A_UNDERLINE);
           ch = getch();
           if (ch == 'o' || ch == 'O')
           {
             clear();
             if (LibreOfficeLaunch(buff))
             { 
-              attron(COLOR_PAIR(2));
+              attron(COLOR_PAIR(2) | A_UNDERLINE);
               mvprintw(0, 0, "LibreOffice Calc Launched Succesfully");
-              attroff(COLOR_PAIR(2));
+              attroff(COLOR_PAIR(2) | A_UNDERLINE);
               getch();
             }
             else 
@@ -216,9 +217,9 @@ int main(void)
               attroff(COLOR_PAIR(3));
               getch();
             }
-            attron(COLOR_PAIR(4));
+            attron(COLOR_PAIR(4) | A_UNDERLINE);
             mvprintw(3, 0,"Press Enter Key to Return Back.");
-            attroff(COLOR_PAIR(4));
+            attroff(COLOR_PAIR(4) | A_UNDERLINE);
             getch();
           }
           goto ReportBack;
@@ -229,9 +230,9 @@ int main(void)
           attroff(COLOR_PAIR(2));
           mvprintw(2, 0, "Report Created At : %s",buff);
           SlowStock(tab, buff);
-          attron(COLOR_PAIR(4));
+          attron(COLOR_PAIR(4) | A_UNDERLINE);
           mvprintw(5, 0,"Press Enter Key to Return Back or O to open the Report Using LibreOffice Calc.");
-          attroff(COLOR_PAIR(4));
+          attroff(COLOR_PAIR(4) | A_UNDERLINE);
           ch = getch();
           if (ch == 'o' || ch == 'O')
           {
@@ -270,9 +271,9 @@ int main(void)
           case 1:
             if (tab)
             {
-              attron(COLOR_PAIR(3));
+              attron(COLOR_PAIR(3) | A_BLINK);
               mvprintw(0, 0, "Hash Table Already in Memory.");
-              attroff(COLOR_PAIR(3));
+              attroff(COLOR_PAIR(3) | A_BLINK);
               attron(COLOR_PAIR(4));
               mvprintw(3, 0,"Do you want to Delete Current Table and load a New One [y/N] : ");
               attroff(COLOR_PAIR(4));
@@ -286,9 +287,9 @@ int main(void)
                 goto FileBack;
             }
             clear();
-            attron(COLOR_PAIR(2));
+            attron(COLOR_PAIR(2) | A_BOLD);
             mvprintw(0, 0,"---Load File---");
-            attroff(COLOR_PAIR(2));
+            attroff(COLOR_PAIR(2) | A_BOLD);
             mvprintw(1, 0, "Use Default Path [Y/n]: %s", fpath);
             ch = getch();
             if (ch == 'n' || ch =='N')
@@ -313,27 +314,27 @@ int main(void)
             attron(COLOR_PAIR(2));
             mvprintw(2, 0,"Items Loaded : %d", tab->size);
             attroff(COLOR_PAIR(2));
-            attron(COLOR_PAIR(4));
+            attron(COLOR_PAIR(4) | A_UNDERLINE);
             mvprintw(5, 0,"Press Enter Key to Return Back.");
-            attroff(COLOR_PAIR(4));
+            attroff(COLOR_PAIR(4) | A_UNDERLINE);
             getch();
             fclose(fp);
             goto FileBack;
           case 2:
           if (!tab)
             {
-              attron(COLOR_PAIR(3));
+              attron(COLOR_PAIR(3) | A_BLINK);
               mvprintw(0, 0, "Hash Table Not Created.");
-              attroff(COLOR_PAIR(3));
-              attron(COLOR_PAIR(4));
+              attroff(COLOR_PAIR(3) | A_BLINK);
+              attron(COLOR_PAIR(4) | A_UNDERLINE);
               mvprintw(3, 0,"Press Enter Key to Return Back.");
-              attroff(COLOR_PAIR(4));
+              attroff(COLOR_PAIR(4) | A_UNDERLINE);
               getch();
               goto FileBack;
             }
-            attron(COLOR_PAIR(2));
+            attron(COLOR_PAIR(2) | A_BOLD);
             mvprintw(0, 0,"---Save File---");
-            attroff(COLOR_PAIR(2));
+            attroff(COLOR_PAIR(2) | A_BOLD);
             clrtobot();
             mvprintw(1, 0, "Use Default Path [Y/n]: %s", fpath);
             ch = getch();
@@ -353,48 +354,48 @@ int main(void)
             mvprintw(3, 0,"File Saved at %s",fpath);
             mvprintw(4, 0,"Items Saved : %d",tab->size);
             attroff(COLOR_PAIR(2));
-            attron(COLOR_PAIR(4));
+            attron(COLOR_PAIR(4) | A_UNDERLINE);
             mvprintw(7, 0,"Press Enter Key to Return Back.");
-            attroff(COLOR_PAIR(4));
+            attroff(COLOR_PAIR(4) | A_UNDERLINE);
             refresh();
             getch();
             goto FileBack;
           case 3:
           if (!tab)
             {
-              attron(COLOR_PAIR(3));
+              attron(COLOR_PAIR(3) | A_BLINK);
               mvprintw(0, 0, "Hash Table Not Created.");
-              attroff(COLOR_PAIR(3));
-              attron(COLOR_PAIR(4));
+              attroff(COLOR_PAIR(3) | A_BLINK);
+              attron(COLOR_PAIR(4) | A_UNDERLINE);
               mvprintw(3, 0,"Press Enter Key to Return Back.");
-              attroff(COLOR_PAIR(4));
+              attroff(COLOR_PAIR(4) | A_UNDERLINE);
               getch();
               goto FileBack;
             }
-            attron(COLOR_PAIR(2));
-            mvprintw(0, 0,"---Purging Discontinued Items---");
-            attroff(COLOR_PAIR(2));
+            attron(COLOR_PAIR(2) | A_BOLD);
+            mvprintw(0, 0,"---Purge Discontinued Items---");
+            attroff(COLOR_PAIR(2) | A_BOLD);
             clrtobot();
             if (!tab->dis)
             {
               attron(COLOR_PAIR(3));
               mvprintw(2, 0,"No Discontinued Items To Purge.");
               attroff(COLOR_PAIR(3));
-              attron(COLOR_PAIR(4));
+              attron(COLOR_PAIR(4) | A_UNDERLINE);
               mvprintw(5, 0,"Press Enter Key to Return Back.");
-              attroff(COLOR_PAIR(4));
+              attroff(COLOR_PAIR(4) | A_UNDERLINE);
               getch();
               goto FileBack;
             }
             tab = PurgeTable(tab, fpath);
             if (!tab)
             {
-              attron(COLOR_PAIR(3));
+              attron(COLOR_PAIR(3) | A_BLINK);
               mvprintw(2, 0,"Auto Reload of File Failed! Manual Reload Suggested.");
-              attroff(COLOR_PAIR(3));
-              attron(COLOR_PAIR(4));
+              attroff(COLOR_PAIR(3) | A_BLINK);
+              attron(COLOR_PAIR(4) | A_UNDERLINE);
               mvprintw(5, 0,"Press Enter Key to Return Back.");
-              attroff(COLOR_PAIR(4));
+              attroff(COLOR_PAIR(4) | A_UNDERLINE);
               getch();
               goto FileBack;
             }
@@ -404,9 +405,9 @@ int main(void)
             attroff(COLOR_PAIR(2));
             tab->size = tab->act;
             tab->dis = 0;
-            attron(COLOR_PAIR(4));
+            attron(COLOR_PAIR(4) | A_UNDERLINE);
             mvprintw(6, 0,"Press Enter Key to Return Back.");
-            attroff(COLOR_PAIR(4));
+            attroff(COLOR_PAIR(4) | A_UNDERLINE);
             getch();
             goto FileBack;
           case 4:
@@ -418,27 +419,33 @@ int main(void)
         goto MainBack;
       }
     case 4:
+      attron(COLOR_PAIR(5) | A_STANDOUT);
       mvprintw(0, 0,"Inventory Management System V1.0");
-      mvprintw(1, 0,"Devloped By : Aditya Patel" );
-      mvprintw(2, 0,"For The Code Visit Github :-");
+      attroff(COLOR_PAIR(5) | A_STANDOUT);
+      mvprintw(2, 0,"Devloped By : Aditya Patel" );
+      mvprintw(3, 0,"Github : ");
+      attron(COLOR_PAIR(5));
+      printw("https://github.com/adityadd4d-prog/Inventory-Management");
+      attroff(COLOR_PAIR(5));
       attron(COLOR_PAIR(2));
-      mvprintw(3, 0,"https://github.com/adityadd4d-prog/Inventory-Management");
+      mvprintw(5, 0, "Supported Only on Linux.");
+      mvprintw(6, 0, "Made and Tested on Arch Linux.");
       attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(4));
-      mvprintw(6, 0,"Press Enter Key to Return Back.");
-      attroff(COLOR_PAIR(4));
+      attron(COLOR_PAIR(4) | A_UNDERLINE);
+      mvprintw(9, 0,"Press Enter Key to Return Back.");
+      attroff(COLOR_PAIR(4) | A_UNDERLINE);
       refresh();
       getch();
       goto MainBack;
     case 5:
       if (tab)
       {
-        attron(COLOR_PAIR(2));
+        attron(COLOR_PAIR(2) | A_BOLD);
         mvprintw(0, 0, "---Exit Sequence---");
-        attroff(COLOR_PAIR(2));
-        attron(COLOR_PAIR(3));
+        attroff(COLOR_PAIR(2) | A_BOLD);
+        attron(COLOR_PAIR(3) | A_BLINK);
         mvprintw(1, 0, "Hash Table in Memory.");
-        attroff(COLOR_PAIR(3));
+        attroff(COLOR_PAIR(3) | A_BLINK);
         attron(COLOR_PAIR(4));
         mvprintw(3, 0,"Would you Like to Save it in Persistance Storage [y/N] : ");
         attroff(COLOR_PAIR(4));
@@ -449,9 +456,9 @@ int main(void)
           if (AdminVerify())
           {
             clear();
-            attron(COLOR_PAIR(2));
+            attron(COLOR_PAIR(2) | A_BOLD);
             mvprintw(0, 0, "---Exit Sequence---");
-            attroff(COLOR_PAIR(2));
+            attroff(COLOR_PAIR(2) | A_BOLD);
             mvprintw(1, 0, "Use Default Path [Y/n]: %s", fpath);
             ch = getch();
             if (ch == 'n' || ch =='N')
@@ -472,10 +479,14 @@ int main(void)
             attroff(COLOR_PAIR(2));
             DeleteTable(tab);
             tab = NULL;
-            attron(COLOR_PAIR(4));
+            attron(COLOR_PAIR(4) | A_UNDERLINE);
             mvprintw(7, 0,"Press Enter Key to Exit Program.");
-            attroff(COLOR_PAIR(4));
+            attroff(COLOR_PAIR(4) | A_UNDERLINE);
             getch();
+          }
+          else 
+          {
+            goto MainBack;
           }
         }
       }
