@@ -178,48 +178,15 @@ FILE* LoadFile(char *fileName)
   FILE *fp = fopen(fileName, "r");
   if (!fp)
   {
-    attron(COLOR_PAIR(3) | A_BLINK);
-    mvprintw(3, 0, "File Opening Failed!");
-    attroff(COLOR_PAIR(3) | A_BLINK);
-    attron(COLOR_PAIR(4) | A_UNDERLINE);
-    mvprintw(6, 0, "Press Enter Key To Return Back.");
-    attroff(COLOR_PAIR(4) | A_UNDERLINE);
-    getch();
+    printf("File Opening Failed!\n");
     return NULL;
   }
   int size = Count(fp);
   if (!size)
   {
-    attron(COLOR_PAIR(3) | A_BLINK);
-    mvprintw(3, 0, "Empty File!");
-    attroff(COLOR_PAIR(3) | A_BLINK);
-    attron(COLOR_PAIR(4));
-    mvprintw(6, 0, "Would You Like To Continue [Y/n] : ");
-    attroff(COLOR_PAIR(4));
-    char ch = getch();
-    if (ch == 'N' || ch == 'n')
-    {
-      return NULL;
-    }
-    else 
-    {
-      attron(COLOR_PAIR(2));
-      mvprintw(3, 0, "File Opening Successfull.");
-      attroff(COLOR_PAIR(2));
-      attron(COLOR_PAIR(4) | A_UNDERLINE);
-      mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table");
-      attroff(COLOR_PAIR(4) | A_UNDERLINE);
-      getch();
-      return fp;
-    }
+    printf("Empty File!\n");
+    return fp; // Assume yes since UI will handle confirmations
   }
-  attron(COLOR_PAIR(2));
-  mvprintw(3, 0, "File Opening Successfull.");
-  attroff(COLOR_PAIR(2));
-  attron(COLOR_PAIR(4) | A_UNDERLINE);
-  mvprintw(6, 0, "Press Enter Key To Proceed To Create Hash Table.");
-  attroff(COLOR_PAIR(4) | A_UNDERLINE);
-  getch();
   return fp;
 }
 
