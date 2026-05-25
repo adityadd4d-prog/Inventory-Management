@@ -8,8 +8,7 @@
 //------------------
 #include <ctype.h>
 #include <math.h>
-#include <menu.h>
-#include <ncurses.h>
+#include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,8 +28,6 @@
 #define ADMIN "test"
 
 //---For UI---
-#define ENTER 10
-#define F1 KEY_F(1)
 #define PATH 512
 
 
@@ -85,16 +82,6 @@ int LibreOfficeLaunch(char *file);
 void WriteFile(Table *tab, char *fileName);
 
 //---For UI---
-Item* AddItem(Table tab);
-int AdminVerify(void);
-int FileMenu(Table *tab);
-int ItemMenu(Table *tab);
-int MainMenu(void);
-int MyMenu(char **opt, int optNum, int y, int x);
-int ReportMenu(void);
-int SearchMenu(void);
-int UpdateMenu(void);
-void DisplayItem(Item *it);
-void UpdateItem(Table *tab);
+void create_main_window(Table *tab, int argc, char **argv);
 
 #endif
